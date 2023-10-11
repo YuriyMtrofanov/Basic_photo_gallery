@@ -3,10 +3,12 @@ import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import "./App.css";
 import NavBar from "./components/navBar";
-import GalleryPage from "./pages/galleryPage";
+import GalleriesPage from "./pages/galleriesPage";
 import Gallery from "./pages/gallery";
 import AdminPage from "./pages/adminPage";
 import { Navigate, Outlet, Route, Routes } from "react-router-dom";
+
+// const DB_URL = "https://console.firebase.google.com/u/0/project/basic-photo-gallery/database/basic-photo-gallery-default-rtdb/data"
 
 function App() {
     return (
@@ -14,7 +16,7 @@ function App() {
             <NavBar/>
             <Routes>
                 <Route path="" element={<Outlet/>}>
-                    <Route path="" element={<GalleryPage/>}/>
+                    <Route path="" element={<GalleriesPage/>}/>
                     <Route path=":galleryId" element={<Gallery/>}/>
                 </Route>
                 <Route path="admin" element={<AdminPage/>}/>
