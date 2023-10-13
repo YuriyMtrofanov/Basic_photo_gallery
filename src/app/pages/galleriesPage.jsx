@@ -1,19 +1,53 @@
-import React, { useEffect } from "react";
-// import galleriesService from "../services/galleries.service";
-import axios from "axios";
+import React from "react";
+import galleryService from "../services/gallery.service";
 
 const GalleriesPage = () => {
-    useEffect(async () => {
+    const newAlbum = {
+        id: "67rdca3eeb7f6fgeed471818",
+        photos: ["юрец", "вероника", "гапета"]
+    };
+    const handleGet = async () => {
         try {
-            const content = await axios.get("https://basic-photo-gallery-default-rtdb.europe-west1.firebasedatabase.app/gallery.json");
+            const content = await galleryService.getAlbums();
+            console.log("content", content);
+        } catch (error) {
+            console.log("error", error);
+        }
+    };
+
+    const handleGetAlbum = async () => {
+        try {
+            const content = await galleryService.getCurrentAlbum("67rdca3eeb7f6fgeed471818");
             console.log(content);
         } catch (error) {
             console.log(error);
         }
-    }, []);
+    };
+
+    const handlePut = async () => {
+        try {
+            const content = await galleryService.createAlbum(newAlbum);
+            console.log("content", content);
+        } catch (error) {
+            console.log("error", error);
+        }
+    };
+
+    const handleUpdate = async () => {
+        try {
+            const content = await galleryService.updateAlbum(newAlbum);
+            console.log(content);
+        } catch (error) {
+            console.log("error", error);
+        }
+    };
+
     return (
         <div className="gallery-container">
-            <h1 className="gallery-container">All Galleries</h1>
+            <button className="btn btn-primary" onClick={handleGet}>Get albums</button>
+            <button className="btn btn-primary" onClick={handleGetAlbum}>Get current album</button>
+            <button className="btn btn-primary" onClick={handlePut}>Put new album</button>
+            <button className="btn btn-primary" onClick={handleUpdate}>Update album</button>
         </div>
     );
 };
