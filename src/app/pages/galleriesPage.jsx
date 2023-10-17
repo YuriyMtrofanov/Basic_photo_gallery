@@ -1,18 +1,20 @@
 import React from "react";
+import { useSelector } from "react-redux";
+import { getGalleriesList } from "../store/galleries";
 // import galleryService from "../services/gallery.service";
-import photoService from "../services/photo.service";
+// import photoService from "../services/photo.service";
 
 const GalleriesPage = () => {
-    const newPhoto = {
-        id: "67rdca3eeb7f6fphoto471815",
-        albumId: "67rdca3eeb7f6fgeed471815",
-        label: "Photo label",
-        title: "Photo title",
-        URL: "https://sun9-6.userapi.com/impg/J-Ro91N6ewynPJKdj7DOYrLWvLXXPPSSxdKpdw/U7tiG7w3zys.jpg?size=1280x800&quality=96&sign=e688dbe9507c7feb88a9e7d73cd67e2a&c_uniq_tag=NPrehrrRmgWKRqjWgEjqBODxD7dl1HfUQTwu455AuzY&type=album"
-    };
+    // const newPhoto = {
+    //     id: "67rdca3eeb7f6fphoto471815",
+    //     albumId: "67rdca3eeb7f6fgeed471815",
+    //     label: "Photo label",
+    //     title: "Photo title",
+    //     URL: "https://sun9-6.userapi.com/impg/J-Ro91N6ewynPJKdj7DOYrLWvLXXPPSSxdKpdw/U7tiG7w3zys.jpg?size=1280x800&quality=96&sign=e688dbe9507c7feb88a9e7d73cd67e2a&c_uniq_tag=NPrehrrRmgWKRqjWgEjqBODxD7dl1HfUQTwu455AuzY&type=album"
+    // };
     // const handleGet = async () => {
     //     try {
-    //         const content = await galleryService.getAlbums();
+    //         const content = await galleryService.getAllGalleries();
     //         console.log("content", content);
     //     } catch (error) {
     //         console.log("error", error);
@@ -21,7 +23,7 @@ const GalleriesPage = () => {
 
     // const handleGetAlbum = async () => {
     //     try {
-    //         const content = await galleryService.getCurrentAlbum("67rdca3eeb7f6fgeed471818");
+    //         const content = await galleryService.getCurrentGallery("67rdca3eeb7f6fgeed471818");
     //         console.log(content);
     //     } catch (error) {
     //         console.log(error);
@@ -30,7 +32,7 @@ const GalleriesPage = () => {
 
     // const handlePut = async () => {
     //     try {
-    //         const content = await galleryService.createAlbum(newAlbum);
+    //         const content = await galleryService.createGallery(newAlbum);
     //         console.log("content", content);
     //     } catch (error) {
     //         console.log("error", error);
@@ -39,7 +41,7 @@ const GalleriesPage = () => {
 
     // const handleUpdate = async () => {
     //     try {
-    //         const content = await galleryService.updateAlbum(newAlbum);
+    //         const content = await galleryService.updateGallery(newAlbum);
     //         console.log(content);
     //     } catch (error) {
     //         console.log("error", error);
@@ -48,70 +50,76 @@ const GalleriesPage = () => {
 
     // const handleDelete = async () => {
     //     try {
-    //         const content = await galleryService.deleteAlbum(newAlbum.id);
+    //         const content = await galleryService.deleteGallery(newAlbum.id);
     //         console.log(content);
     //     } catch (error) {
     //         console.log(error);
     //     }
     // };
 
-    const handleGet = async () => {
-        try {
-            const content = await photoService.getAllPhotos();
-            console.log("content", content);
-        } catch (error) {
-            console.log("error", error);
-        }
-    };
+    // const handleGet = async () => {
+    //     try {
+    //         const content = await photoService.getAllPhotos();
+    //         console.log("content", content);
+    //     } catch (error) {
+    //         console.log("error", error);
+    //     }
+    // };
 
-    const handleGetAlbum = async () => {
-        try {
-            const content = await photoService.getCurrentPhoto(newPhoto.id);
-            console.log(content);
-        } catch (error) {
-            console.log(error);
-        }
-    };
+    // const handleGetAlbum = async () => {
+    //     try {
+    //         const content = await photoService.getCurrentPhoto(newPhoto.id);
+    //         console.log(content);
+    //     } catch (error) {
+    //         console.log(error);
+    //     }
+    // };
 
-    const handlePut = async () => {
-        try {
-            const content = await photoService.addPhoto(newPhoto);
-            console.log("content", content);
-        } catch (error) {
-            console.log("error", error);
-        }
-    };
+    // const handlePut = async () => {
+    //     try {
+    //         const content = await photoService.addPhoto(newPhoto);
+    //         console.log("content", content);
+    //     } catch (error) {
+    //         console.log("error", error);
+    //     }
+    // };
 
-    const handleUpdate = async () => {
-        try {
-            const content = await photoService.updatePhoto(newPhoto);
-            console.log(content);
-        } catch (error) {
-            console.log("error", error);
-        }
-    };
+    // const handleUpdate = async () => {
+    //     try {
+    //         const content = await photoService.updatePhoto(newPhoto);
+    //         console.log(content);
+    //     } catch (error) {
+    //         console.log("error", error);
+    //     }
+    // };
 
-    const handleDelete = async () => {
-        try {
-            const content = await photoService.deletePhoto(newPhoto.id);
-            console.log(content);
-        } catch (error) {
-            console.log(error);
-        }
+    // const handleDelete = async () => {
+    //     try {
+    //         const content = await photoService.deletePhoto(newPhoto.id);
+    //         console.log(content);
+    //     } catch (error) {
+    //         console.log(error);
+    //     }
+    // };
+
+    const galleries = useSelector(getGalleriesList());
+    // console.log("galleries", galleries);
+    const handleGet = () => {
+        console.log("galleries", galleries);
     };
 
     return (
         <div className="gallery-container">
-            {/* <button className="btn btn-primary" onClick={handleGet}>Get albums</button>
-            <button className="btn btn-primary" onClick={handleGetAlbum}>Get current album</button>
+            <button className="btn btn-primary" onClick={handleGet}>Get albums</button>
+            {/* <button className="btn btn-primary" onClick={handleGetAlbum}>Get current album</button>
             <button className="btn btn-primary" onClick={handlePut}>Put new album</button>
             <button className="btn btn-primary" onClick={handleUpdate}>Update album</button>
             <button className="btn btn-primary" onClick={handleDelete}>Delete album</button> */}
-            <button className="btn btn-primary" onClick={handleGet}>Get photos</button>
+            {/* <button className="btn btn-primary" onClick={handleGet}>Get photos</button>
             <button className="btn btn-primary" onClick={handleGetAlbum}>Get current photos</button>
             <button className="btn btn-primary" onClick={handlePut}>Put new photos</button>
             <button className="btn btn-primary" onClick={handleUpdate}>Update photo</button>
-            <button className="btn btn-primary" onClick={handleDelete}>Delete photo</button>
+            <button className="btn btn-primary" onClick={handleDelete}>Delete photo</button> */}
         </div>
     );
 };

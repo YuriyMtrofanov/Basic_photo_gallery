@@ -1,4 +1,8 @@
-import { createAction, createSlice } from "@reduxjs/toolkit";
+import {
+    // createAction,
+    createSlice
+} from "@reduxjs/toolkit";
+import galleryService from "../services/gallery.service";
 
 const galleriesSlice = createSlice({
     name: "galleries",
@@ -20,15 +24,15 @@ const galleriesSlice = createSlice({
             state.error = action.payload;
             state.isLoading = false;
         },
-        // galleryCreateRequested: () => {}, // через createAction
+        // galleryCreateRequested
         galleryCreated: (state, action) => {
             if (!Array.isArray(state.entities)) {
                 state.entities = [];
             }
             state.entities.push(action.payload);
         },
-        // galleryCreateFailed: () => {},
-        // galleryEditRequested: () => {},
+        // galleryCreateFailed
+        // galleryEditRequested
         galleryEdited: (state, action) => {
             if (!Array.isArray(state.entities)) {
                 state.entities = [];
@@ -36,10 +40,36 @@ const galleriesSlice = createSlice({
             state.entities[state.entities.findIndex((gallery) =>
                 gallery.id === action.payload.id
             )] = action.payload;
-        },
-        // galleryEditFailed: () => {},
+        }
+        // galleryEditFailed
     }
 });
 
 const { reducer: galleriesReducer, actions } = galleriesSlice;
-const { galleriesRequested, galleriesReceived, galleriesRequestFailed} = actions;
+const {
+    galleriesRequested,
+    galleriesReceived,
+    galleriesRequestFailed
+    // galleryCreated,
+    // galleryEdited
+} = actions;
+
+// const galleryCreateRequested = createAction("galleries/galleryCreateRequested");
+// const galleryCreateFailed = createAction("galleries/galleryCreateFailed");
+// const galleryEditRequested = createAction("galleries/galleryEditRequested");
+// const galleryEditFailed = createAction("galleries/galleryEditFailed");
+
+export const loadGalleriesList = () => async (dispatch, getState) => {
+    dispatch(galleriesRequested());
+    try {
+        const content = await galleryService.getAllGalleries();
+        dispatch(galleriesReceived(content));
+    } catch (error) {
+        dispatch(galleriesRequestFailed(error.message));
+    }
+};
+
+export const getGalleriesList = () => (state) => state.galleries.entities;
+export const getGalleriesLoadingStatus = () => (state) => state.galleries.isLoading;
+
+export default galleriesReducer;
