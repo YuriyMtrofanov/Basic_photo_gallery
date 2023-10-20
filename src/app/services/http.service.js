@@ -9,8 +9,11 @@ const http = axios.create({
 // Перехват ответа от сервера и отработка ошибок ответов
 http.interceptors.response.use(
     (res) => {
-        if (configFile.isFireBase) {
+        if (configFile.isFirebase) {
             res.data = { content: transformData(res.data) };
+            // в данном случае мы получаем объект res.data = { data: {{}, {}, {}} }
+            // и мы его приводим к виду res.data = { content: [{}, {}, {}] }
+            // то есть изначально получаем объект data и трансформируем его в массив content
         }
         return res;
     },

@@ -2,13 +2,14 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getGalleriesLoadingStatus, loadGalleriesList } from "../../store/galleries";
 import PropTypes from "prop-types";
+import { loadPhotosList } from "../../store/photos";
 
 const AppLoader = ({ children }) => {
     const dispatch = useDispatch();
     const galleriesLoadingStatus = useSelector(getGalleriesLoadingStatus());
     useEffect(() => {
         dispatch(loadGalleriesList());
-        // dispatch(loadPhotosList())
+        dispatch(loadPhotosList());
     }, []);
     if (galleriesLoadingStatus) return "Loading...";
     return children;
