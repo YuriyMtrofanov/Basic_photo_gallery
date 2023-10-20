@@ -1,0 +1,13 @@
+[
+    {
+        "id": "67rdca3eeb7f6fgeed471816",
+        "label": "Album label",
+        "title": "Album title",
+        "titlePhoto": "title_photoId",
+        "photos": [
+            "photoId_1",
+            "photoId_2",
+            "photoId_3"
+        ]
+    }
+]
