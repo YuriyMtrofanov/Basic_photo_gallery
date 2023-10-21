@@ -1,73 +1,39 @@
 import React from "react";
+import { getGalleriesList } from "../store/galleries";
 import {
-    useDispatch,
     useSelector
 } from "react-redux";
-import { createPhoto, deletePhoto, editPhoto, getAllPhotos, getCurrentPhoto } from "../store/photos";
+import {
+    getAllPhotos
+} from "../store/photos";
+import { NavLink } from "react-router-dom";
 
 const GalleriesPage = () => {
-    const newPhoto = {
-        id: "67rdca3eeb7f6fphoto471818",
-        label: "Photo label_2",
-        title: "Photo title_2",
-        URL: "https://w.forfun.com/fetch/89/89e4e13c5e0b25b44371209c12ee5d44.jpeg"
-    };
-    const updatePhoto = {
-        id: "67rdca3eeb7f6fphoto471815",
-        label: "Photo label_3",
-        title: "Photo title_1",
-        URL: "https://w.forfun.com/fetch/5c/5c667b51332990f7af3d3b20b4548883.jpeg"
-    };
-
-    const dispatch = useDispatch();
+    // const dispatch = useDispatch();
+    const galleries = useSelector(getGalleriesList());
     const photos = useSelector(getAllPhotos());
-    const currentPhoto = useSelector(getCurrentPhoto("67rdca3eeb7f6fphoto471815"));
-    // const newAlbum = {
-    //     id: "67rdca3eeb7f6fgeed471819",
-    //     label: "Album label",
-    //     title: "Album title",
-    //     photos: [
-    //         "photo_id_1",
-    //         "photo_id_2",
-    //         "photo_id_2"
-    //     ]
-    // };
-    // const updateAlbum = {
-    //     id: "67rdca3eeb7f6fgeed471819",
-    //     label: "Album label",
-    //     title: "Album title",
-    //     photos: [
-    //         "photo_id_1",
-    //         "photo_id_2",
-    //         "photo_id_2"
-    //     ]
-    // };
-    const handleGet = () => console.log("state", photos);
-    const handlePut = () => {
-        dispatch(createPhoto(newPhoto));
+    const getTitlePhoto = (id) => {
+        return photos.find(photo => photo.id === id).URL;
     };
-    const handleGetAlbum = () => {
-        console.log(currentPhoto);
-    };
-    const handleUpdate = () => {
-        dispatch(editPhoto(updatePhoto));
-    };
-    const handleDelete = () => {
-        dispatch(deletePhoto("67rdca3eeb7f6fphoto471818"));
-    };
-
+    if (!galleries || !photos) return "Loading...";
     return (
         <div className="gallery-container">
-            {/* <button className="btn btn-primary" onClick={handleGet}>Get albums</button>
-            <button className="btn btn-primary" onClick={handleGetAlbum}>Get current album</button>
-            <button className="btn btn-primary" onClick={handlePut}>Put new album</button>
-            <button className="btn btn-primary" onClick={handleUpdate}>Update album</button>
-            <button className="btn btn-primary" onClick={handleDelete}>Delete album</button> */}
-            <button className="btn btn-primary" onClick={handleGet}>Get photos</button>
-            <button className="btn btn-primary" onClick={handleGetAlbum}>Get current photos</button>
-            <button className="btn btn-primary" onClick={handlePut}>Put new photos</button>
-            <button className="btn btn-primary" onClick={handleUpdate}>Update photo</button>
-            <button className="btn btn-primary" onClick={handleDelete}>Delete photo</button>
+            <div className="row">
+                {galleries.map(gallery => (
+                    <div key={gallery.id} className="col-xlg-3 col-lg-4 col-md-6 col-sm-12">
+                        <div className="gallery-card">
+                            <img src={getTitlePhoto(gallery.tittlePhoto)} className="card-img-top" alt="card-img"/>
+                            <div className="gallery-card-body">
+                                <h5 className="card-title">{gallery.label}</h5>
+                                <p className="card-text">{gallery.title}</p>
+                                <NavLink className="nav-link text-light" to={gallery.id}>
+                                    <p role="button" className="text-secondary">Go to photos</p>
+                                </NavLink>
+                            </div>
+                        </div>
+                    </div>
+                ))}
+            </div>
         </div>
     );
 };

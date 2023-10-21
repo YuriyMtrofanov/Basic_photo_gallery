@@ -13,9 +13,9 @@ import AppLoader from "./components/HOC/appLoader";
 
 function App() {
     return (
-        <div className="app-container">
-            <AppLoader>
-                <NavBar/>
+        <AppLoader>
+            <NavBar/>
+            <div className="app-container">
                 <Routes>
                     <Route path="" element={<Outlet/>}>
                         <Route path="" element={<GalleriesPage/>}/>
@@ -24,8 +24,8 @@ function App() {
                     <Route path="admin" element={<AdminPage/>}/>
                     <Route path="*" element={<Navigate to="/"/>}/>
                 </Routes>
-            </AppLoader>
-        </div>
+            </div>
+        </AppLoader>
     );
 }
 
