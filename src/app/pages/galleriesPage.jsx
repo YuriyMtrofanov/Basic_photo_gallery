@@ -20,17 +20,19 @@ const GalleriesPage = () => {
         <div className="gallery-container">
             <div className="row">
                 {galleries.map(gallery => (
-                    <div key={gallery.id} className="col-xlg-3 col-lg-4 col-md-6 col-sm-12">
-                        <div className="gallery-card">
-                            <img src={getTitlePhoto(gallery.tittlePhoto)} className="card-img-top" alt="card-img"/>
-                            <div className="gallery-card-body">
-                                <h5 className="card-title">{gallery.label}</h5>
-                                <p className="card-text">{gallery.title}</p>
-                                <NavLink className="nav-link text-light" to={gallery.id}>
-                                    <p role="button" className="text-secondary">Go to photos</p>
-                                </NavLink>
+                    <div key={gallery.id} className="col-xlg-2 col-lg-3 col-md-6 col-sm-12">
+                        <NavLink className="nav-link text-light" to={gallery.id}>
+                            <div className="gallery-card">
+                                <img src={getTitlePhoto(gallery.tittlePhoto)} className="gallery-card-img" alt="card-img"/>
+                                {/* <div className="gallery-card-body">
+                                    <h5 className="card-title">{gallery.label}</h5>
+                                    <p className="card-text">{gallery.title}</p>
+                                    <NavLink className="nav-link text-light" to={gallery.id}>
+                                        <p role="button" className="text-secondary">Go to photos</p>
+                                    </NavLink>
+                                </div> */}
                             </div>
-                        </div>
+                        </NavLink>
                     </div>
                 ))}
             </div>

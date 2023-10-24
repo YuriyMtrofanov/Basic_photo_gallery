@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { NavLink, useParams } from "react-router-dom";
 import { getCurrentGallery } from "../store/galleries";
 import { getAllPhotos } from "../store/photos";
 
@@ -20,19 +20,17 @@ const Gallery = () => {
         <div className="gallery-container">
             <div className="row">
                 {galleryPhotos.map(photo => (
-                    <div key={photo.id} className="col-xlg-3 col-lg-4 col-md-6 col-sm-12">
+                    <div key={photo.id} className="col-xlg-2 col-lg-3 col-md-6 col-sm-12">
                         <div className="photo-card">
-                            <img src={photo.URL} className="card-img-top" alt="photo"/>
-                            {/* <div className="photo-card-body">
-                                <h5 className="card-title">{photo.label}</h5>
-                                <p className="card-text">{photo.title}</p>
-                            </div> */}
+                            <NavLink className="nav-link" to={`${photo.id}`}>
+                                <img src={photo.URL} className="photo-card-img" alt="photo"/>
+                                <p>{photo.id}</p>
+                            </NavLink>
                         </div>
                     </div>
                 ))}
             </div>
         </div>
-        // фотографии будут отображаться в модальном окне
     );
 };
 
