@@ -1,0 +1,44 @@
+.nav-container {
+    display: flex; /*по умолчанию основная ось горизонтальна слева направо*/
+    /* position: fixed; */
+    justify-content: center; /*выравниваем дочерний nav-content по центру*/
+    /* border: 2px solid rgb(176, 11, 140); */
+    gap: 10px; /*данное свойство устанавливает равные отступы между элементами внутри контейнера*/
+    flex-grow: 1;
+    background-image: linear-gradient(130deg, rgb(135, 135, 135), rgb(97, 97, 97));
+}
+
+@media screen and (max-width: 640px) {
+    .nav-container {
+        flex-direction: column;
+    }
+    .nav-block {
+        flex-direction: column;
+    }
+}
+
+.nav-content {
+    display: flex;
+    justify-content: space-between; /*выравниваем дочерние nav-block по краям*/
+    width: 60%;
+    /* border: 2px solid rgb(16, 11, 176); */
+}
+
+.nav-block {
+    display: flex;
+    /* border: 2px solid rgb(11, 176, 61); */
+}
+
+.nav-item {
+    padding: 15px;
+    text-align: center;
+    font: 500 20px "Helvetica";
+    color: rgb(255, 255, 255);
+    /* border: 2px solid rgb(16, 11, 176); */
+    /* text-shadow: 4px 4px 4px rgba(0, 0, 0, 0.6); */
+}
+
+.nav-link {
+    color: rgb(206, 203, 216);
+    text-decoration: none;
+}

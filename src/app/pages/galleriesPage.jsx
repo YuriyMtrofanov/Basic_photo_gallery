@@ -21,16 +21,16 @@ const GalleriesPage = () => {
             <div className="row">
                 {galleries.map(gallery => (
                     <div key={gallery.id} className="col-xlg-2 col-lg-3 col-md-6 col-sm-12">
-                        <NavLink className="nav-link text-light" to={gallery.id}>
-                            <div className="gallery-card">
+                        <NavLink className="nav-link" to={gallery.id}>
+                            <div className="gallery-card text-light">
                                 <img src={getTitlePhoto(gallery.tittlePhoto)} className="gallery-card-img" alt="card-img"/>
-                                {/* <div className="gallery-card-body">
+                                <div className="gallery-card-body">
                                     <h5 className="card-title">{gallery.label}</h5>
-                                    <p className="card-text">{gallery.title}</p>
-                                    <NavLink className="nav-link text-light" to={gallery.id}>
+                                    <p className="card-text">{[...gallery.photos].length} фотографий</p>
+                                    {/* <NavLink className="nav-link text-light" to={gallery.id}>
                                         <p role="button" className="text-secondary">Go to photos</p>
-                                    </NavLink>
-                                </div> */}
+                                    </NavLink> */}
+                                </div>
                             </div>
                         </NavLink>
                     </div>

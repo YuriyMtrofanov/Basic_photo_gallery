@@ -1,22 +1,26 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
+import "./navBar.css";
 
 const NavBar = () => {
     return (
-        <nav className="navbar navbar-expand-lg navbar-light bg-secondary text-light">
-            <div className="container-fluid">
-                <div className="collapse navbar-collapse" id="navbarNav">
-                    <ul className="navbar-nav">
-                        <li className="nav-item">
-                            <NavLink className="nav-link text-light" to="/galleries">Galleries</NavLink>
-                        </li>
-                        <li className="nav-item">
-                            <NavLink className="nav-link text-light" to="/admin">Admin</NavLink>
-                        </li>
-                    </ul>
+        <div className="nav-container">
+            <div className="nav-content">
+                <div className="nav-block">
+                    <div className="nav-item">
+                        <NavLink className="nav-link text-light" to="/galleries">Galleries</NavLink>
+                    </div>
+                    <div className="nav-item">
+                        <NavLink className="nav-link text-light" to="/admin">Admin</NavLink>
+                    </div>
+                </div>
+                <div className="nav-block">
+                    <div className="nav-item">
+                        Login
+                    </div>
                 </div>
             </div>
-        </nav>
+        </div>
     );
 };
 

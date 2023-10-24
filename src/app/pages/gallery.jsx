@@ -15,7 +15,6 @@ const Gallery = () => {
     };
     const galleryPhotos = getPhotos();
     if (!allPhotos || !photos) return "Loading...";
-    console.log("gallery photos", galleryPhotos);
     return (
         <div className="gallery-container">
             <div className="row">
@@ -24,7 +23,7 @@ const Gallery = () => {
                         <div className="photo-card">
                             <NavLink className="nav-link" to={`${photo.id}`}>
                                 <img src={photo.URL} className="photo-card-img" alt="photo"/>
-                                <p>{photo.id}</p>
+                                {/* <p>{photo.id}</p> */}
                             </NavLink>
                         </div>
                     </div>
