@@ -29,6 +29,9 @@ const Gallery = () => {
                     </div>
                 ))}
             </div>
+            <NavLink to="add_photo">
+                <button className="btn btn-secondary">Add photo</button>
+            </NavLink>
         </div>
     );
 };

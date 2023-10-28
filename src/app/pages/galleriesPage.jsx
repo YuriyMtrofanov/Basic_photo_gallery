@@ -27,15 +27,15 @@ const GalleriesPage = () => {
                                 <div className="gallery-card-body">
                                     <h5 className="card-title">{gallery.label}</h5>
                                     <p className="card-text">{[...gallery.photos].length} фотографий</p>
-                                    {/* <NavLink className="nav-link text-light" to={gallery.id}>
-                                        <p role="button" className="text-secondary">Go to photos</p>
-                                    </NavLink> */}
                                 </div>
                             </div>
                         </NavLink>
                     </div>
                 ))}
             </div>
+            <NavLink className="nav-link" to="create_album">
+                <button className="btn btn-secondary">Create album</button>
+            </NavLink>
         </div>
     );
 };
