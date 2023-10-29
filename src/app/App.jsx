@@ -11,7 +11,6 @@ import { Navigate, Outlet, Route, Routes } from "react-router-dom";
 import AppLoader from "./components/HOC/appLoader";
 import CreateGalleryForm from "./components/forms/createGalleryForm";
 import AddPhotoForm from "./components/forms/addPhotoForm";
-// import PhotoPage from "./pages/photoPage";
 
 // const DB_URL = "https://console.firebase.google.com/u/0/project/basic-photo-gallery/database/basic-photo-gallery-default-rtdb/data"
 

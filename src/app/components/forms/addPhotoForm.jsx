@@ -1,8 +1,12 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { nanoid } from "@reduxjs/toolkit";
 import TextField from "./inputs/TextField";
 import TextAreaField from "./inputs/TextAreaField";
+import { createPhoto } from "../../store/photos";
 
 const AddPhotoForm = () => {
+    const dispatch = useDispatch();
     const [inputData, setInputData] = useState({
         name: "",
         description: "",
@@ -16,8 +20,14 @@ const AddPhotoForm = () => {
         }));
     };
 
-    const handleSubmit = () => {
-        console.log(inputData);
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        const outputData = {
+            ...inputData,
+            id: `photo${nanoid()}`
+        };
+        dispatch(createPhoto(outputData));
+        console.log(outputData);
     };
 
     return (
@@ -47,11 +57,12 @@ const AddPhotoForm = () => {
                             value={inputData.URL}
                             onChange={handleChange}
                         />
+                        <button
+                            type="submit"
+                            className="btn btn-secondary mt-3"
+                            onClick={handleSubmit}
+                        >Add</button>
                     </form>
-                    <button
-                        className="btn btn-secondary mt-3"
-                        onClick={handleSubmit}
-                    >Add</button>
                 </div>
             </div>
         </div>
