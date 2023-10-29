@@ -7,7 +7,8 @@ import { getAllPhotos } from "../store/photos";
 const Gallery = () => {
     const { galleryId } = useParams();
     const allPhotos = useSelector(getAllPhotos());
-    const { photos } = useSelector(getCurrentGallery(galleryId));
+    const currentGallery = useSelector(getCurrentGallery(galleryId));
+    const { photos } = currentGallery;
     function getPhotos() {
         return photos.map(photoId => {
             return allPhotos.find(photo => photo.id === photoId);
@@ -18,6 +19,7 @@ const Gallery = () => {
     return (
         <div className="gallery-container">
             <div className="row">
+                <h1>{currentGallery.label}</h1>
                 {galleryPhotos.map(photo => (
                     <div key={photo.id} className="col-xlg-2 col-lg-3 col-md-6 col-sm-12">
                         <div className="photo-card">

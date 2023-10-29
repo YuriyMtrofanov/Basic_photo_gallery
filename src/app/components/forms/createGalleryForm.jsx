@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import TextField from "./inputs/TextField";
 import TextAreaField from "./inputs/TextAreaField";
+import AddPhotoField from "./inputs/AddPhotoField";
 
 const CreateGalleryForm = () => {
     const [inputData, setInputData] = useState({
@@ -11,8 +12,8 @@ const CreateGalleryForm = () => {
     });
     // const reference = {
     //     id: "67rdca3eeb7f6fgeed471816",
-    //     name: "Album name",
-    //     description: "description",
+    //     name: "Album name", // TextField
+    //     description: "description", // TextAreaField
     //     titlePhoto: "title_photoId",
     //     photos: []
     // };
@@ -22,6 +23,7 @@ const CreateGalleryForm = () => {
             [target.name]: target.value
         }));
     };
+
     const handleSubmit = () => {
         console.log(inputData);
     };
@@ -34,7 +36,7 @@ const CreateGalleryForm = () => {
                         <TextField
                             name="name"
                             type="name"
-                            label="Название статьи"
+                            label="Название альбома"
                             value={inputData.name}
                             onChange={handleChange}
                         />
@@ -43,6 +45,13 @@ const CreateGalleryForm = () => {
                             type="description"
                             label="Краткое описание"
                             value={inputData.description}
+                            onChange={handleChange}
+                        />
+                        <AddPhotoField
+                            name="photos"
+                            type="photos"
+                            label="Добавить фотографию"
+                            value={inputData.photos}
                             onChange={handleChange}
                         />
                     </form>

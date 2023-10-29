@@ -84,3 +84,12 @@
   justify-content: center;
   /* flex-wrap: wrap; */
 }
+
+.add-photo-container {
+  border: 1px solid rgb(46, 29, 174);
+  display: flex;
+  min-height: 100vh;
+  width: 60%;
+  justify-content: center;
+  /* flex-wrap: wrap; */
+}
