@@ -25,7 +25,7 @@ const Gallery = () => {
                         <div className="photo-card">
                             <NavLink className="nav-link" to={`${photo.id}`}>
                                 <img src={photo.URL} className="photo-card-img" alt="photo"/>
-                                {/* <p>{photo.id}</p> */}
+                                <p>{photo.id}</p>
                             </NavLink>
                         </div>
                     </div>

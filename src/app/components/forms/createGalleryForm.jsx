@@ -1,22 +1,20 @@
 import React, { useState } from "react";
 import TextField from "./inputs/TextField";
 import TextAreaField from "./inputs/TextAreaField";
-import AddPhotoField from "./inputs/AddPhotoField";
+// import AddPhotoField from "./inputs/AddPhotoField";
+import { nanoid } from "@reduxjs/toolkit";
+import { useDispatch } from "react-redux";
+import { createGallery } from "../../store/galleries";
 
 const CreateGalleryForm = () => {
+    const dispatch = useDispatch();
     const [inputData, setInputData] = useState({
         name: "",
         description: "",
-        titlePhoto: "",
-        photos: []
+        titlePhoto: "", // id string
+        photos: "" // photos: [] Array of id`s
     });
-    // const reference = {
-    //     id: "67rdca3eeb7f6fgeed471816",
-    //     name: "Album name", // TextField
-    //     description: "description", // TextAreaField
-    //     titlePhoto: "title_photoId",
-    //     photos: []
-    // };
+
     const handleChange = (target) => {
         setInputData((prevState) => ({
             ...prevState,
@@ -24,8 +22,15 @@ const CreateGalleryForm = () => {
         }));
     };
 
-    const handleSubmit = () => {
-        console.log(inputData);
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        console.log("inputData", inputData);
+        const outputData = {
+            ...inputData,
+            id: `album${nanoid()}`
+        };
+        dispatch(createGallery(outputData));
+        console.log("outputData", outputData);
     };
     return (
         <div className="create-gallery-container">
@@ -47,18 +52,19 @@ const CreateGalleryForm = () => {
                             value={inputData.description}
                             onChange={handleChange}
                         />
-                        <AddPhotoField
+                        {/* <AddPhotoField
                             name="photos"
                             type="photos"
                             label="Добавить фотографию"
                             value={inputData.photos}
                             onChange={handleChange}
-                        />
+                        /> */}
+                        <button
+                            type="submit"
+                            className="btn btn-secondary mt-3"
+                            onClick={handleSubmit}
+                        >Create</button>
                     </form>
-                    <button
-                        className="btn btn-secondary mt-3"
-                        onClick={handleSubmit}
-                    >Create</button>
                 </div>
             </div>
         </div>

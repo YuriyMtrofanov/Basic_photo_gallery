@@ -27,7 +27,6 @@ const AddPhotoForm = () => {
             id: `photo${nanoid()}`
         };
         dispatch(createPhoto(outputData));
-        console.log(outputData);
     };
 
     return (

@@ -54,6 +54,21 @@
   margin: 5px;
 }
 
+/*Блок-затычка в т.ч. кнопка для созддания нового альбома*/
+.default-gallery-card {
+  display: flex;
+  justify-content: center;
+  height: 150px;
+  width: 200px;
+  background-color: rgb(114, 114, 114);
+}
+
+.default-gallery-card-body {
+  display: flex;
+  align-items: center;
+  margin: 5px;
+}
+
 /* страница со всеми фотографиями в альбоме и*/
 /* страница с изображением фотографии на в полном размере*/
 .photo-container {
