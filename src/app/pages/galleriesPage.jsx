@@ -11,15 +11,8 @@ import DefaultGalleryCerd from "../components/cards/defaultGalleryCard";
 import GalleryCard from "../components/cards/galleryCard";
 
 const GalleriesPage = () => {
-    // const dispatch = useDispatch();
     const galleries = useSelector(getGalleriesList());
     const photos = useSelector(getAllPhotos());
-    // const getTitlePhoto = (id) => {
-    //     return photos.find(photo => photo.id === id).URL;
-    // };
-
-    console.log("Альбомы", galleries);
-    console.log("Фотографии", photos);
 
     if (!galleries || !photos) return "Loading...";
     return (
@@ -36,13 +29,12 @@ const GalleriesPage = () => {
                         </NavLink>
                     </div>
                 ))}
-                <NavLink className="nav-link" to="create_album" placeholder="Add new album">
-                    <DefaultGalleryCerd/>
-                </NavLink>
+                <div className="col-xlg-2 col-lg-3 col-md-6 col-sm-12">
+                    <NavLink className="nav-link" to="create_album" placeholder="Add new album">
+                        <DefaultGalleryCerd/>
+                    </NavLink>
+                </div>
             </div>
-            {/* <NavLink className="nav-link" to="create_album">
-                <button className="btn btn-secondary">Create album</button>
-            </NavLink> */}
         </div>
     );
 };

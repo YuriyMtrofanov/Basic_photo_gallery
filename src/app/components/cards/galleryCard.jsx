@@ -12,6 +12,7 @@ const GalleryCard = ({
     const getTitlePhoto = (id) => {
         return allPhotos.find(item => item.id === id).URL;
     };
+    // console.log("photos", photos[0]);
     return (
         <div className="gallery-card text-light">
             <img src={getTitlePhoto(titlePhoto)} className="gallery-card-img" alt="card-img"/>
