@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import TextField from "./inputs/TextField";
 import TextAreaField from "./inputs/TextAreaField";
-// import AddPhotoField from "./inputs/AddPhotoField";
 import { nanoid } from "@reduxjs/toolkit";
 import { useDispatch } from "react-redux";
 import { createGallery } from "../../store/galleries";
@@ -30,33 +29,24 @@ const CreateGalleryForm = () => {
         description: "",
         URL: ""
     };
-    const [photosToAdd, setPhotosToAdd] = useState([]);
+    const [photosToAdd, setPhotosToAdd] = useState([initialPhotoForm]);
     const handleAddPhoto = () => {
         setPhotosToAdd(prevState => [...prevState, { ...initialPhotoForm }]);
+        console.log("album reference data", inputData);
     };
-    useEffect(() => {
-        // я получаю все id созданных заготовок под фотографии
-        // теперь мне нужно на каждой итерации добавлять полученные id в массив и этот массив
-        // засабмитить в итоговый альбом.
-        // Данный блок нужно будет перенести в handleSubmit
-        const photosToSubmit = photosToAdd.map((photo) => photo.id);
-        const outputData = {
-            ...inputData,
-            id: `album${nanoid()}`,
-            photos: photosToSubmit
-        };
-        console.log("outputData", outputData);
-    }, [photosToAdd]);
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        console.log("inputData", inputData);
+        // console.log("inputData", inputData);
+        const createdPhotosIds = photosToAdd.map((photo) => photo.id);
         const outputData = {
             ...inputData,
-            id: `album${nanoid()}`
+            id: `album${nanoid()}`,
+            photos: createdPhotosIds,
+            titlePhoto: createdPhotosIds[0]
         };
         dispatch(createGallery(outputData));
-        console.log("outputData", outputData);
+        // console.log("outputData", outputData);
     };
     return (
         <div className="create-gallery-container">
@@ -78,24 +68,29 @@ const CreateGalleryForm = () => {
                             value={inputData.description}
                             onChange={handleChange}
                         />
-                        <button
+                        {/* <button
                             type="submit"
                             className="btn btn-secondary mt-3"
                             onClick={handleSubmit}
-                        >Create</button>
+                        >Create album</button> */}
                     </form>
                     {/* Добавление формы с фоготрафией */}
                     <div className="add-photo-form">
                         {photosToAdd.map((newPhoto) => (
                             <AddPhotoForm
                                 key={newPhoto.id}
-                                id={newPhoto.id}
+                                photoId={newPhoto.id}
                             />
                         ))}
                         <button className="btn btn-secondary mt-2" onClick={handleAddPhoto}>
-                            Add photo
+                            Добавить фотографию
                         </button>
                     </div>
+                    <button
+                        type="submit"
+                        className="btn btn-secondary mt-3"
+                        onClick={handleSubmit}
+                    >Create album</button>
                 </div>
             </div>
         </div>

@@ -2,11 +2,12 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import PropTypes from "prop-types";
 import TextField from "./inputs/TextField";
-import TextAreaField from "./inputs/TextAreaField";
+// import TextAreaField from "./inputs/TextAreaField";
 import { createPhoto } from "../../store/photos";
 
-const AddPhotoForm = (photoId) => {
+const AddPhotoForm = ({ photoId }) => {
     const dispatch = useDispatch();
+    console.log("photoId", photoId);
     const [inputData, setInputData] = useState({
         name: "",
         description: "",
@@ -24,7 +25,7 @@ const AddPhotoForm = (photoId) => {
         event.preventDefault();
         const outputData = {
             ...inputData,
-            id: photoId
+            id: photoId // как-то не правильно это все
         };
         dispatch(createPhoto(outputData));
     };
@@ -43,13 +44,13 @@ const AddPhotoForm = (photoId) => {
                     value={inputData.name}
                     onChange={handleChange}
                 />
-                <TextAreaField
+                {/* <TextAreaField
                     name="description"
                     type="description"
                     label="Краткое описание"
                     value={inputData.description}
                     onChange={handleChange}
-                />
+                /> */}
                 <TextField
                     name="URL"
                     type="URL"
@@ -61,7 +62,7 @@ const AddPhotoForm = (photoId) => {
                     type="submit"
                     className="btn btn-secondary mt-3"
                     onClick={handleSubmit}
-                >Add</button>
+                >Загрузить фото</button>
             </form>
         </>
         //         </div>
