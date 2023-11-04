@@ -2,94 +2,84 @@ import React, { useState } from "react";
 import TextField from "./inputs/TextField";
 import TextAreaField from "./inputs/TextAreaField";
 import { nanoid } from "@reduxjs/toolkit";
+import MultiplePhotoForm from "./multiplePhotoForm";
 import { useDispatch } from "react-redux";
 import { createGallery } from "../../store/galleries";
-import AddPhotoForm from "./addPhotoForm";
+import { createPhoto } from "../../store/photos";
+import { useNavigate } from "react-router-dom";
 
 const CreateGalleryForm = () => {
     const dispatch = useDispatch();
-    const [inputData, setInputData] = useState({
+    const navigate = useNavigate();
+    const initialAlbumData = {
+        id: `album-${nanoid()}`,
         name: "",
         description: "",
-        titlePhoto: "", // id string
-        photos: [] // photos: [] Array of id`s
-    });
-
-    const handleChange = (target) => {
-        setInputData((prevState) => ({
+        titlePhoto: "",
+        photos: []
+    };
+    const [inputAlbumData, setInputAlbumData] = useState(initialAlbumData);
+    const handleAlbumChange = (target) => {
+        setInputAlbumData((prevState) => ({
             ...prevState,
             [target.name]: target.value
         }));
     };
 
-    // Стейт для формы добавления фотографии
-    const initialPhotoForm = {
-        id: `photo${nanoid()}`,
-        name: "",
-        description: "",
-        URL: ""
-    };
-    const [photosToAdd, setPhotosToAdd] = useState([initialPhotoForm]);
-    const handleAddPhoto = () => {
-        setPhotosToAdd(prevState => [...prevState, { ...initialPhotoForm }]);
-        console.log("album reference data", inputData);
+    const photos = [];
+    const handleChangePhoto = (addedPhoto) => {
+        const changedPhoto = photos.find(photo => photo.id === addedPhoto.id);
+        if (changedPhoto) {
+            const index = photos.findIndex(photo => photo.id === addedPhoto.id);
+            photos[index] = addedPhoto;
+        } else {
+            photos.push(addedPhoto);
+        }
     };
 
-    const handleSubmit = (event) => {
+    const handleAlbumSubmit = async (event) => {
         event.preventDefault();
-        // console.log("inputData", inputData);
-        const createdPhotosIds = photosToAdd.map((photo) => photo.id);
-        const outputData = {
-            ...inputData,
-            id: `album${nanoid()}`,
-            photos: createdPhotosIds,
-            titlePhoto: createdPhotosIds[0]
+        const photosIdsArray = photos.map(photo => photo.id);
+        const outputAlbum = {
+            ...inputAlbumData,
+            photos: photosIdsArray,
+            titlePhoto: photosIdsArray[0]
         };
-        dispatch(createGallery(outputData));
-        // console.log("outputData", outputData);
+        console.log("outputAlbum", outputAlbum);
+        photos.map(photo => console.log("outputPhotos", photo));
+        photos.map(photo => dispatch(createPhoto({ ...photo })));
+        dispatch(createGallery(outputAlbum));
+        navigate("/");
     };
+
     return (
         <div className="create-gallery-container">
             <div className="row">
                 <div className="col-12">
                     <h1>Создать новый альбом</h1>
-                    <form onSubmit={handleSubmit}>
+                    <form onSubmit={handleAlbumSubmit}>
                         <TextField
                             name="name"
                             type="name"
                             label="Название альбома"
-                            value={inputData.name}
-                            onChange={handleChange}
+                            value={inputAlbumData.name}
+                            onChange={handleAlbumChange}
                         />
                         <TextAreaField
                             name="description"
                             type="description"
                             label="Краткое описание"
-                            value={inputData.description}
-                            onChange={handleChange}
+                            value={inputAlbumData.description}
+                            onChange={handleAlbumChange}
                         />
-                        {/* <button
-                            type="submit"
-                            className="btn btn-secondary mt-3"
-                            onClick={handleSubmit}
-                        >Create album</button> */}
                     </form>
-                    {/* Добавление формы с фоготрафией */}
-                    <div className="add-photo-form">
-                        {photosToAdd.map((newPhoto) => (
-                            <AddPhotoForm
-                                key={newPhoto.id}
-                                photoId={newPhoto.id}
-                            />
-                        ))}
-                        <button className="btn btn-secondary mt-2" onClick={handleAddPhoto}>
-                            Добавить фотографию
-                        </button>
-                    </div>
+                    <MultiplePhotoForm
+                        changePhoto={handleChangePhoto}
+                    />
                     <button
                         type="submit"
                         className="btn btn-secondary mt-3"
-                        onClick={handleSubmit}
+                        onClick={handleAlbumSubmit}
                     >Create album</button>
                 </div>
             </div>
