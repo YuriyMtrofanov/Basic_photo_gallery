@@ -45,11 +45,17 @@ const CreateGalleryForm = () => {
             photos: photosIdsArray,
             titlePhoto: photosIdsArray[0]
         };
-        console.log("outputAlbum", outputAlbum);
-        photos.map(photo => console.log("outputPhotos", photo));
-        photos.map(photo => dispatch(createPhoto({ ...photo })));
-        dispatch(createGallery(outputAlbum));
-        navigate("/");
+        // console.log("outputAlbum", outputAlbum);
+        try {
+            photos.map(photo => dispatch(createPhoto({ ...photo })));
+            dispatch(createGallery(outputAlbum));
+        } catch (error) {
+            console.error(error.message);
+        } finally {
+            navigate(-1);
+            // navigate("/");
+        }
+        // photos.map(photo => console.log("outputPhotos", photo));
     };
 
     return (
@@ -57,22 +63,22 @@ const CreateGalleryForm = () => {
             <div className="row">
                 <div className="col-12">
                     <h1>Создать новый альбом</h1>
-                    <form onSubmit={handleAlbumSubmit}>
-                        <TextField
-                            name="name"
-                            type="name"
-                            label="Название альбома"
-                            value={inputAlbumData.name}
-                            onChange={handleAlbumChange}
-                        />
-                        <TextAreaField
-                            name="description"
-                            type="description"
-                            label="Краткое описание"
-                            value={inputAlbumData.description}
-                            onChange={handleAlbumChange}
-                        />
-                    </form>
+                    {/* <form onSubmit={handleAlbumSubmit}> */}
+                    <TextField
+                        name="name"
+                        type="name"
+                        label="Название альбома"
+                        value={inputAlbumData.name}
+                        onChange={handleAlbumChange}
+                    />
+                    <TextAreaField
+                        name="description"
+                        type="description"
+                        label="Краткое описание"
+                        value={inputAlbumData.description}
+                        onChange={handleAlbumChange}
+                    />
+                    {/* </form> */}
                     <MultiplePhotoForm
                         changePhoto={handleChangePhoto}
                     />

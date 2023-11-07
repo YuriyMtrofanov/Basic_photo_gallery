@@ -37,6 +37,8 @@
   flex-direction: column;
   position: relative; /*зададим родительский компонент для текста*/
   margin: 0.5%;
+  
+  /* height: 23vh; */
   /* border: 2px solid rgb(176, 11, 140); */
 }
 
@@ -51,7 +53,9 @@
   bottom: 1%; /*... и снизу*/
   flex-direction: column;
   align-content: space-between;
-  margin: 5px;
+  /* margin: 5px; */
+  padding: 5px;
+  background-image: linear-gradient(180deg, rgba(118, 52, 126, 0.0), rgb(74, 74, 74));
 }
 
 /*Блок-затычка в т.ч. кнопка для созддания нового альбома*/
@@ -60,7 +64,7 @@
   justify-content: center;
   /* min-height: 100vh; */
   width: 100%;
-  height: auto;
+  height: 100%;
   /* width: 200px; */
   background-color: rgb(114, 114, 114);
 }

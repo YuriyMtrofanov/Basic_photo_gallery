@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { nanoid } from "@reduxjs/toolkit";
 import PhotoForm from "./photoForm";
@@ -12,9 +12,6 @@ const MultiplePhotoForm = ({ changePhoto }) => {
     const handleAddPhoto = () => {
         setInputPhotosArray([...inputPhotosArray, { ...initialPhotoData, id: `photo-${nanoid()}` }]);
     };
-    useEffect(() => {
-        console.log("inputPhotosArray", inputPhotosArray);
-    }, [inputPhotosArray]);
     return (
         <div>
             <h1>Фотографии</h1>
