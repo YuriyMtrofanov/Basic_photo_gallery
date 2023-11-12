@@ -20,7 +20,7 @@ const Gallery = () => {
         <div className="gallery-container">
             <div className="row">
                 <h1>{currentGallery.label}</h1>
-                {galleryPhotos.map(photo => (
+                {galleryPhotos.map((photo) => (
                     <div key={photo.id} className="col-xlg-2 col-lg-3 col-md-6 col-sm-12">
                         <div className="photo-card">
                             <NavLink className="nav-link" to={`${photo.id}`}>
@@ -31,9 +31,9 @@ const Gallery = () => {
                     </div>
                 ))}
             </div>
-            <NavLink to="add_photo">
+            {/* <NavLink to="add_photo">
                 <button className="btn btn-secondary">Add photo</button>
-            </NavLink>
+            </NavLink> */}
             <NavLink to="edit_album">
                 <button className="btn btn-secondary">Edit album</button>
             </NavLink>
