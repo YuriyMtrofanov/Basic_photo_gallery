@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { getCurrentGallery, updateGallery } from "../../store/galleries";
@@ -25,15 +25,18 @@ const EditGalleryForm = () => {
     };
 
     const [selectedItems, setSelectedItems] = useState([]);
-    // useEffect(() => {
-    //     console.log("selectedItems", selectedItems);
-    // }, [selectedItems]);
+    useEffect(() => {
+        console.log("selectedItems", selectedItems);
+    }, [selectedItems]);
     const handleChange = (id) => {
-        // setSelectedItems(prevState => prevState.push(id));
-        setSelectedItems(prevState => (
-            [...prevState, id]
-            // console.log("componentExist", componentExist)
-        ));
+        const isExist = selectedItems.find(item => item === id);
+        if (!isExist) {
+            setSelectedItems(prevState => (
+                [...prevState, id]
+            ));
+        } else {
+            setSelectedItems(prevState => (prevState.filter(item => item !== id)));
+        }
     };
 
     const getClassName = (id) => {
