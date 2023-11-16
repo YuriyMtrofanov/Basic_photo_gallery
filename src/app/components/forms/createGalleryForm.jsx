@@ -52,10 +52,9 @@ const CreateGalleryForm = () => {
         } catch (error) {
             console.error(error.message);
         } finally {
-            navigate(-1);
-            // navigate("/");
+            // navigate(-1);
+            navigate("/");
         }
-        // photos.map(photo => console.log("outputPhotos", photo));
     };
 
     return (
@@ -78,7 +77,6 @@ const CreateGalleryForm = () => {
                         value={inputAlbumData.description}
                         onChange={handleAlbumChange}
                     />
-                    {/* </form> */}
                     <MultiplePhotoForm
                         changePhoto={handleChangePhoto}
                     />

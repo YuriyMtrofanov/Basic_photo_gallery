@@ -20,16 +20,19 @@ const Gallery = () => {
         <div className="gallery-container">
             <div className="row">
                 <h1>{currentGallery.label}</h1>
-                {galleryPhotos.map((photo) => (
-                    <div key={photo.id} className="col-xlg-2 col-lg-3 col-md-6 col-sm-12">
-                        <div className="photo-card">
-                            <NavLink className="nav-link" to={`${photo.id}`}>
-                                <img src={photo.URL} className="photo-card-img" alt="photo"/>
-                                <p>{photo.id}</p>
-                            </NavLink>
+                {photos
+                    ? (galleryPhotos.map((photo) => (
+                        <div key={photo.id} className="col-xlg-2 col-lg-3 col-md-6 col-sm-12">
+                            <div className="photo-card">
+                                <NavLink className="nav-link" to={`${photo.id}`}>
+                                    <img src={photo.URL} className="photo-card-img" alt="photo"/>
+                                    <p>{photo.id}</p>
+                                </NavLink>
+                            </div>
                         </div>
-                    </div>
-                ))}
+                    )))
+                    : "Loading"
+                }
             </div>
             {/* <NavLink to="add_photo">
                 <button className="btn btn-secondary">Add photo</button>

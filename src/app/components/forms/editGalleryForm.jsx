@@ -1,16 +1,20 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
+import _ from "lodash";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { getCurrentGallery, updateGallery } from "../../store/galleries";
+import { getAllPhotos } from "../../store/photos";
 import TextField from "./inputs/TextField";
 import TextAreaField from "./inputs/TextAreaField";
-import { getAllPhotos } from "../../store/photos";
+import PhotoCardSmall from "../cards/photoCardSmall";
+
 const EditGalleryForm = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const { galleryId } = useParams();
     const currentGallery = useSelector(getCurrentGallery(galleryId));
     const allPhotos = useSelector(getAllPhotos());
+
     const [inputAlbumData, setInputAlbumData] = useState(currentGallery);
     const handleAlbumChange = (target) => {
         setInputAlbumData((prevState) => ({
@@ -25,29 +29,26 @@ const EditGalleryForm = () => {
     };
 
     const [selectedItems, setSelectedItems] = useState([]);
-    useEffect(() => {
-        console.log("selectedItems", selectedItems);
-    }, [selectedItems]);
-    const handleChange = (id) => {
-        const isExist = selectedItems.find(item => item === id);
+    const handleGetSelectedPhotos = (data) => {
+        const isExist = selectedItems.find(item => item === data);
         if (!isExist) {
-            setSelectedItems(prevState => (
-                [...prevState, id]
-            ));
+            setSelectedItems(prevState => ([...prevState, data]));
         } else {
-            setSelectedItems(prevState => (prevState.filter(item => item !== id)));
+            setSelectedItems(prevState => (prevState.filter(item => item !== data)));
         }
     };
 
-    const getClassName = (id) => {
-        const isSelected = selectedItems.find(item => item === id);
-        return `gallery-card${isSelected ? "-selected" : ""}`;
-    };
+    const allPhotosIds = allPhotos && allPhotos.map(photo => photo.id);
+    const filteredPhotos = _.difference(allPhotosIds, currentGallery.photos);
 
     const handleSubmit = async (event) => {
         event.preventDefault();
         const outputAlbum = {
-            ...inputAlbumData
+            ...inputAlbumData,
+            photos: [
+                ...inputAlbumData.photos,
+                ...selectedItems
+            ]
         };
         console.log("outputAlbum", outputAlbum);
         try {
@@ -58,6 +59,7 @@ const EditGalleryForm = () => {
             navigate(-1);
         }
     };
+    if (!allPhotos) return "...Loading";
     return (
         <div className="edit-gallery-container">
             <div className="row">
@@ -89,13 +91,12 @@ const EditGalleryForm = () => {
                     <div className="add-photos-wrap-container">
                         <div className="row">
                             {type === "show" &&
-                                allPhotos.map((photo) => (
-                                    <div key={photo.id} className="col-2">
-                                        {/* <div className="gallery-card" onClick={() => handleChangeClassname(photo.id)}> */}
-                                        <div className={getClassName(photo.id)} onClick={() => handleChange(photo.id)}>
-                                            {/* <div className={onClassName(photo.id)} onClick={() => handleChengeClassname(photo.id)}> */}
-                                            <img src={photo.URL} className="photo-card-img" alt="photo"/>
-                                        </div>
+                                filteredPhotos.map((id) => (
+                                    <div key={id} className="col-2">
+                                        <PhotoCardSmall
+                                            photoId = {id}
+                                            getSelectedPhoto = {handleGetSelectedPhotos}
+                                        />
                                     </div>
                                 ))
                             }
