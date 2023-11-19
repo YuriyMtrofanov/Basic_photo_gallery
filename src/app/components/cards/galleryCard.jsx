@@ -16,7 +16,7 @@ const GalleryCard = ({
     };
     return (
         <>
-            {photos || titlePhoto
+            {photos && titlePhoto
                 ? (<div className="gallery-card text-light">
                     <img src={getTitlePhoto(titlePhoto)} className="gallery-card-img" alt="card-img"/>
                     <div className="gallery-card-body">
@@ -24,7 +24,7 @@ const GalleryCard = ({
                         <p className="card-text">{[...photos].length} фотографий</p>
                     </div>
                 </div>)
-                : (<DefaultGalleryCerd/>) // затычка
+                : (<DefaultGalleryCerd type={"image"}/>) // затычка
             }
         </>
     );

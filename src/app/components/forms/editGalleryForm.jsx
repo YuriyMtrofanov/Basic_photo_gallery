@@ -50,9 +50,10 @@ const EditGalleryForm = () => {
         const outputAlbum = {
             ...inputAlbumData,
             photos: [
-                ...inputAlbumData.photos,
+                ...inputAlbumData.photos || [],
                 ...selectedItems
-            ]
+            ],
+            titlePhoto: inputAlbumData.titlePhoto || selectedItems[0]
         };
         try {
             dispatch(updateGallery(outputAlbum));

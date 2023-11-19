@@ -22,6 +22,7 @@ const Gallery = () => {
             return [];
         }
     };
+
     const galleryPhotos = getPhotos(); // массив из объектов с фотографиями для данной галереи
 
     const handleDelete = (id) => {
@@ -40,7 +41,7 @@ const Gallery = () => {
     return (
         <div className="gallery-container">
             <div className="row">
-                <h1>{currentGallery.label}</h1>
+                <h1>{currentGallery.name}</h1>
                 {photos
                     ? (
                         galleryPhotos.map((photo) => (
