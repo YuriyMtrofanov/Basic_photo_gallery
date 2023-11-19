@@ -9,6 +9,7 @@ import {
 import { NavLink } from "react-router-dom";
 import DefaultGalleryCerd from "../components/cards/defaultGalleryCard";
 import GalleryCard from "../components/cards/galleryCard";
+import BackButton from "../components/buttons/backButton";
 
 const GalleriesPage = () => {
     const galleries = useSelector(getGalleriesList());
@@ -35,6 +36,9 @@ const GalleriesPage = () => {
                     </NavLink>
                 </div>
             </div>
+            <BackButton
+                endpoint={"/"}
+            />
         </div>
     );
 };

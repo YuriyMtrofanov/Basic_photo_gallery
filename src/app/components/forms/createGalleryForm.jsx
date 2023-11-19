@@ -45,7 +45,6 @@ const CreateGalleryForm = () => {
             photos: photosIdsArray,
             titlePhoto: photosIdsArray[0]
         };
-        // console.log("outputAlbum", outputAlbum);
         try {
             photos.map(photo => dispatch(createPhoto({ ...photo })));
             dispatch(createGallery(outputAlbum));
@@ -53,7 +52,8 @@ const CreateGalleryForm = () => {
             console.error(error.message);
         } finally {
             // navigate(-1);
-            navigate("/");
+            // navigate("/");
+            navigate("/galleries");
         }
     };
 
@@ -62,7 +62,6 @@ const CreateGalleryForm = () => {
             <div className="row">
                 <div className="col-12">
                     <h1>Создать новый альбом</h1>
-                    {/* <form onSubmit={handleAlbumSubmit}> */}
                     <TextField
                         name="name"
                         type="name"

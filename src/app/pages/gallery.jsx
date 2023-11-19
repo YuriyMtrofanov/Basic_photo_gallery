@@ -34,9 +34,6 @@ const Gallery = () => {
                     : "Loading"
                 }
             </div>
-            {/* <NavLink to="add_photo">
-                <button className="btn btn-secondary">Add photo</button>
-            </NavLink> */}
             <NavLink to="edit_album">
                 <button className="btn btn-secondary">Edit album</button>
             </NavLink>

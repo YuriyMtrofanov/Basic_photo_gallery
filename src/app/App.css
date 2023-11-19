@@ -24,6 +24,7 @@
 
 /* страница с альбомами*/
 .gallery-container {
+  position: relative;
   min-height: 100vh;
   width: 60%;
   justify-content: center;
@@ -138,4 +139,17 @@
   border: 1px solid rgb(46, 29, 174);
   max-width: 100%;
   flex-wrap: wrap;
+}
+
+.back-button {
+  display: flex;
+  position: fixed;
+  justify-content: center;
+  align-items: center;
+  min-height: 5vh;
+  min-width: 5vh;
+  border-radius: 50%;
+  left: 5vh;
+  top: 10vh;
+  background-color: rgba(114, 114, 114, 1.0);
 }

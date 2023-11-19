@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import _ from "lodash";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import { getCurrentGallery, updateGallery } from "../../store/galleries";
+import { deleteGallery, getCurrentGallery, updateGallery } from "../../store/galleries";
 import { getAllPhotos } from "../../store/photos";
 import TextField from "./inputs/TextField";
 import TextAreaField from "./inputs/TextAreaField";
@@ -23,6 +23,7 @@ const EditGalleryForm = () => {
         }));
     };
 
+    // Блок wrapper с выбором из списка всех фотографий
     const [type, setType] = useState("hide");
     const handleChangeType = () => {
         setType(type === "hide" ? "show" : "hide");
@@ -38,7 +39,9 @@ const EditGalleryForm = () => {
         }
     };
 
+    // Создаю массив из id всех фотографий
     const allPhotosIds = allPhotos && allPhotos.map(photo => photo.id);
+    // Сравниваю два массива и оставляю только уникальные id
     const filteredPhotos = _.difference(allPhotosIds, currentGallery.photos);
 
     const handleSubmit = async (event) => {
@@ -50,7 +53,6 @@ const EditGalleryForm = () => {
                 ...selectedItems
             ]
         };
-        console.log("outputAlbum", outputAlbum);
         try {
             dispatch(updateGallery(outputAlbum));
         } catch (error) {
@@ -59,6 +61,17 @@ const EditGalleryForm = () => {
             navigate(-1);
         }
     };
+
+    const handleDelete = async () => {
+        try {
+            dispatch(deleteGallery(galleryId));
+        } catch (error) {
+            console.error(error.message);
+        } finally {
+            navigate("/galleries");
+        }
+    };
+
     if (!allPhotos) return "...Loading";
     return (
         <div className="edit-gallery-container">
@@ -80,11 +93,6 @@ const EditGalleryForm = () => {
                         onChange={handleAlbumChange}
                     />
                     <button
-                        type="submit"
-                        className="btn btn-secondary mt-3"
-                        onClick={handleSubmit}
-                    >Редактировать</button>
-                    <button
                         className="btn btn-secondary mt-3"
                         onClick={handleChangeType}
                     >Добавить фотографии</button>
@@ -102,6 +110,16 @@ const EditGalleryForm = () => {
                             }
                         </div>
                     </div>
+                    <button
+                        type="submit"
+                        className="btn btn-secondary mt-3"
+                        onClick={handleSubmit}
+                    >Редактировать</button>
+                    <button
+                        type="delete"
+                        className="btn btn-danger mt-3"
+                        onClick={handleDelete}
+                    >Удалить аальбом</button>
                 </div>
             </div>
         </div>
