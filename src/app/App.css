@@ -94,6 +94,7 @@
 }
 
 .photo-card {
+  position: relative;
   height: auto;
   margin: 0.5%;
   /* border: 2px solid rgb(176, 11, 140); */
@@ -152,4 +153,12 @@
   left: 5vh;
   top: 10vh;
   background-color: rgba(114, 114, 114, 1.0);
+}
+
+.delete-button {
+  display: flex;
+  position: absolute;
+  justify-content: center;
+  right: 2px;
+  top: 2px;
 }
