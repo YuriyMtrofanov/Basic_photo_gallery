@@ -79,6 +79,7 @@ export const loadPhotosList = () => async (dispatch) => {
 
 export const createPhoto = (payload) => async (dispatch) => {
     dispatch(photoCreateRequested());
+    // console.log("payload", payload);
     try {
         const { content } = await photoService.addPhoto(payload);
         dispatch(photoCreated(content));

@@ -5,27 +5,38 @@ import "./App.css";
 import NavBar from "./components/navBar";
 import GalleriesPage from "./pages/galleriesPage";
 import Gallery from "./pages/gallery";
+import PhotoPage from "./pages/photoPage";
 import AdminPage from "./pages/adminPage";
 import { Navigate, Outlet, Route, Routes } from "react-router-dom";
 import AppLoader from "./components/HOC/appLoader";
+import CreateGalleryForm from "./components/forms/createGalleryForm";
+import EditGalleryForm from "./components/forms/editGalleryForm";
+// import AddPhotoForm from "./components/forms/addPhotoForm";
 
 // const DB_URL = "https://console.firebase.google.com/u/0/project/basic-photo-gallery/database/basic-photo-gallery-default-rtdb/data"
 
 function App() {
     return (
-        <div className="app-container">
-            <AppLoader>
-                <NavBar/>
+        <AppLoader>
+            <NavBar/>
+            <div className="app-container">
+                {/* <NavBar/> */}
                 <Routes>
-                    <Route path="" element={<Outlet/>}>
-                        <Route path="" element={<GalleriesPage/>}/>
-                        <Route path=":galleryId" element={<Gallery/>}/>
+                    <Route path="galleries" element={<Outlet/>}>
+                        <Route index element={<GalleriesPage/>}/>
+                        <Route path=":galleryId" element={<Outlet/>}>
+                            <Route index element={<Gallery/>}/>
+                            <Route path=":photoId" element={<PhotoPage/>}/>
+                            <Route path="edit_album" element={<EditGalleryForm/>}/>
+                            {/* <Route path="add_photo" element={<AddPhotoForm/>}/> */}
+                        </Route>
+                        <Route path="create_album" element={<CreateGalleryForm/>}/>
                     </Route>
                     <Route path="admin" element={<AdminPage/>}/>
                     <Route path="*" element={<Navigate to="/"/>}/>
                 </Routes>
-            </AppLoader>
-        </div>
+            </div>
+        </AppLoader>
     );
 }
 
