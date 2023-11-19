@@ -7,6 +7,7 @@ import { getAllPhotos } from "../../store/photos";
 import TextField from "./inputs/TextField";
 import TextAreaField from "./inputs/TextAreaField";
 import PhotoCardSmall from "../cards/photoCardSmall";
+import BackButton from "../buttons/backButton";
 
 const EditGalleryForm = () => {
     const dispatch = useDispatch();
@@ -122,6 +123,7 @@ const EditGalleryForm = () => {
                     >Удалить аальбом</button>
                 </div>
             </div>
+            <BackButton endpoint={`/galleries/${galleryId}`}/>
         </div>
     );
 };

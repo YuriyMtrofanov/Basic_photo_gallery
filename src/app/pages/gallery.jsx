@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { NavLink, useParams } from "react-router-dom";
 import { getCurrentGallery } from "../store/galleries";
 import { getAllPhotos } from "../store/photos";
+import BackButton from "../components/buttons/backButton";
 
 const Gallery = () => {
     const { galleryId } = useParams();
@@ -26,7 +27,6 @@ const Gallery = () => {
                             <div className="photo-card">
                                 <NavLink className="nav-link" to={`${photo.id}`}>
                                     <img src={photo.URL} className="photo-card-img" alt="photo"/>
-                                    <p>{photo.id}</p>
                                 </NavLink>
                             </div>
                         </div>
@@ -35,8 +35,11 @@ const Gallery = () => {
                 }
             </div>
             <NavLink to="edit_album">
-                <button className="btn btn-secondary">Edit album</button>
+                <button className="btn btn-secondary m-2">Edit album</button>
             </NavLink>
+            <BackButton
+                endpoint={"/galleries"}
+            />
         </div>
     );
 };

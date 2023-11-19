@@ -7,6 +7,7 @@ import { useDispatch } from "react-redux";
 import { createGallery } from "../../store/galleries";
 import { createPhoto } from "../../store/photos";
 import { useNavigate } from "react-router-dom";
+import BackButton from "../buttons/backButton";
 
 const CreateGalleryForm = () => {
     const dispatch = useDispatch();
@@ -51,8 +52,6 @@ const CreateGalleryForm = () => {
         } catch (error) {
             console.error(error.message);
         } finally {
-            // navigate(-1);
-            // navigate("/");
             navigate("/galleries");
         }
     };
@@ -86,6 +85,7 @@ const CreateGalleryForm = () => {
                     >Create album</button>
                 </div>
             </div>
+            <BackButton endpoint={"/galleries"}/>
         </div>
     );
 };
