@@ -32,7 +32,7 @@ const GalleriesPage = () => {
                 ))}
                 <div className="col-xlg-2 col-lg-3 col-md-6 col-sm-12">
                     <NavLink className="nav-link" to="create_album" placeholder="Add new album">
-                        <DefaultGalleryCerd/>
+                        <DefaultGalleryCerd type={"add"}/>
                     </NavLink>
                 </div>
             </div>

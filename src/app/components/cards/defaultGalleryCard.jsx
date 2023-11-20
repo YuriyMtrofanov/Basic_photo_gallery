@@ -1,12 +1,20 @@
 import React from "react";
-const DefaultGalleryCerd = () => {
+import PropTypes from "prop-types";
+const DefaultGalleryCerd = ({ type }) => {
     return (
         <div className="default-gallery-card text-light">
             <div className="default-gallery-card-body">
-                <h1><i className="bi bi-plus-square"></i></h1>
+                <h1>{type === "add"
+                    ? (<i className="bi bi-plus-square"></i>)
+                    : (<i className="bi bi-card-image"></i>)
+                }</h1>
             </div>
         </div>
     );
+};
+
+DefaultGalleryCerd.propTypes = {
+    type: PropTypes.string
 };
 
 export default DefaultGalleryCerd;

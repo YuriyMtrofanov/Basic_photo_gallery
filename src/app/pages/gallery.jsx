@@ -1,26 +1,47 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useParams } from "react-router-dom";
-import { getCurrentGallery } from "../store/galleries";
+import { getCurrentGallery, updateGallery } from "../store/galleries";
 import { getAllPhotos } from "../store/photos";
 import BackButton from "../components/buttons/backButton";
+import DeleteButton from "../components/buttons/deleteButton";
 
 const Gallery = () => {
+    const dispatch = useDispatch();
     const { galleryId } = useParams();
-    const allPhotos = useSelector(getAllPhotos());
     const currentGallery = useSelector(getCurrentGallery(galleryId));
-    const { photos } = currentGallery;
+    const { photos, titlePhoto } = currentGallery; // id-шники фотографий
+    const allPhotos = useSelector(getAllPhotos()); // массив из объектов фотографий
+
     function getPhotos() {
-        return photos.map(photoId => {
-            return allPhotos.find(photo => photo.id === photoId);
-        });
+        if (photos) {
+            return photos.map(photoId => {
+                return allPhotos && allPhotos.find(photo => photo.id === photoId);
+            });
+        } else {
+            return [];
+        }
     };
-    const galleryPhotos = getPhotos();
-    if (!allPhotos || !photos) return "Loading...";
+
+    const galleryPhotos = getPhotos(); // массив из объектов с фотографиями для данной галереи
+
+    const handleDelete = (id) => {
+        const isExist = () => {
+            return photos.find(item => item === id);
+        };
+        const editedPhotos = isExist && photos.filter(item => item !== id);
+        const editedTitlePhoto = titlePhoto === id ? editedPhotos[0] : titlePhoto;
+        const editedGallery = {
+            ...currentGallery,
+            photos: [...editedPhotos],
+            titlePhoto: editedTitlePhoto
+        };
+        dispatch(updateGallery(editedGallery));
+    };
     return (
         <div className="gallery-container">
             <div className="row">
-                <h1>{currentGallery.label}</h1>
+                <h1>{currentGallery.name}</h1>
                 {photos
                     ? (galleryPhotos.map((photo) => (
                         <div key={photo.id} className="col-xlg-2 col-lg-3 col-md-6 col-sm-12">
@@ -28,10 +49,10 @@ const Gallery = () => {
                                 <NavLink className="nav-link" to={`${photo.id}`}>
                                     <img src={photo.URL} className="photo-card-img" alt="photo"/>
                                 </NavLink>
+                                <DeleteButton onDelete={() => handleDelete(photo.id)}/>
                             </div>
-                        </div>
-                    )))
-                    : "Loading"
+                        </div>)))
+                    : (<h1>В альбоме нет фотографий</h1>)
                 }
             </div>
             <NavLink to="edit_album">
