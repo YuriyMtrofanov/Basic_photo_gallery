@@ -1,27 +1,31 @@
-import React, { useEffect } from "react";
-// import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate, useParams } from "react-router-dom";
 import DeleteButton from "../buttons/deleteButton";
 import PropTypes from "prop-types";
-// import { deletePhoto } from "../../store/photos";
-// import { getCurrentGallery } from "../../store/galleries";
+import { getCurrentGallery, updateGallery } from "../../store/galleries";
 
 const PhotoCardLarge = ({ image, id }) => {
-    // const dispatch = useDispatch();
+    const dispatch = useDispatch();
     const navigate = useNavigate();
-    // const currentGallery = useSelector(getCurrentGallery(id));
-    // const { photos, titlePhoto } = currentGallery;
-    useEffect(() => {
-        // console.log("photos", photos);
-        // console.log("titlePhoto", titlePhoto);
-    }, []);
-    const handleDelete = async () => {
+    const { galleryId } = useParams();
+    const currentGallery = useSelector(getCurrentGallery(galleryId));
+    const { photos, titlePhoto } = currentGallery;
+
+    const handleDelete = () => {
+        const editedPhotos = photos.filter(item => item !== id);
+        const editedTitlePhoto = titlePhoto === id ? editedPhotos[0] : titlePhoto;
+        const editedGallery = {
+            ...currentGallery,
+            photos: [...editedPhotos],
+            titlePhoto: editedTitlePhoto
+        };
         try {
-            // dispatch(deletePhoto(id));
+            dispatch(updateGallery(editedGallery));
         } catch (error) {
-            console.error(error);
+            console.error(error.message);
         } finally {
-            navigate(`/galleries/${id}`);
+            navigate(-1);
         }
     };
     return (

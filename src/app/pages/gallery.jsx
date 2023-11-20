@@ -43,19 +43,16 @@ const Gallery = () => {
             <div className="row">
                 <h1>{currentGallery.name}</h1>
                 {photos
-                    ? (
-                        galleryPhotos.map((photo) => (
-                            <div key={photo.id} className="col-xlg-2 col-lg-3 col-md-6 col-sm-12">
-                                <div className="photo-card">
-                                    <NavLink className="nav-link" to={`${photo.id}`}>
-                                        <img src={photo.URL} className="photo-card-img" alt="photo"/>
-                                    </NavLink>
-                                    <DeleteButton onDelete={() => handleDelete(photo.id)}/>
-                                </div>
+                    ? (galleryPhotos.map((photo) => (
+                        <div key={photo.id} className="col-xlg-2 col-lg-3 col-md-6 col-sm-12">
+                            <div className="photo-card">
+                                <NavLink className="nav-link" to={`${photo.id}`}>
+                                    <img src={photo.URL} className="photo-card-img" alt="photo"/>
+                                </NavLink>
+                                <DeleteButton onDelete={() => handleDelete(photo.id)}/>
                             </div>
-                        ))
-                    )
-                    : <h1>В альбоме нет фотографий</h1> // или "Loading"
+                        </div>)))
+                    : (<h1>В альбоме нет фотографий</h1>)
                 }
             </div>
             <NavLink to="edit_album">
