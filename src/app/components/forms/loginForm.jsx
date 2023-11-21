@@ -2,10 +2,11 @@ import React, { useState } from "react";
 import TextField from "./inputs/TextField";
 
 const LoginForm = () => {
-    const [inputData, setInputData] = useState({
+    const initialData = {
         email: "",
         password: ""
-    });
+    };
+    const [inputData, setInputData] = useState(initialData);
     const handleChange = (target) => {
         setInputData(prevState => ({
             ...prevState,
@@ -18,18 +19,18 @@ const LoginForm = () => {
     };
     return (
         <div className="login-form-container">
-            <h1>Login</h1>
+            <h1 className="text-center">Login</h1>
             <TextField
                 name="email"
-                type="email"
+                type="text"
                 label="Введите email"
                 value={inputData.email}
                 onChange={handleChange}
             />
             <TextField
                 name="password"
-                type="password"
-                label="Введите password"
+                type="text"
+                label="Введите пароль"
                 value={inputData.password}
                 onChange={handleChange}
             />

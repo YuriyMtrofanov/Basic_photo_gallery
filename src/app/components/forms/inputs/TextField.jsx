@@ -12,7 +12,7 @@ const TextField = ({
         onChange({ name: target.name, value: target.value });
     };
     return (
-        <div className="text-field">
+        <div className="text-field mt-2">
             <label htmlFor={name}>{ label }</label>
             <div className="input-group has-validation">
                 <input

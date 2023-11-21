@@ -14,13 +14,13 @@ const LoginPage = () => {
                     {type === "login"
                         ? (<>
                             <LoginForm/>
-                            <p className="text-secondary mt-3">Еще нет аккаунта?{" "}
+                            <p className="text-secondary text-center mt-3">Еще нет аккаунта?{" "}
                                 <a className="text-secondary" role="button" onClick={handleChangeType}>Зарегистрироваться</a>
                             </p>
                         </>)
                         : (<>
                             <RegisterForm/>
-                            <p className="text-secondary mt-3">Уже есть аккаунт?{" "}
+                            <p className="text-secondary text-center mt-3">Уже есть аккаунт?{" "}
                                 <a className="text-secondary" role="button" onClick={handleChangeType}>Войти</a>
                             </p>
                         </>)
