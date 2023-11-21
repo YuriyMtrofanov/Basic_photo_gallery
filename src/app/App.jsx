@@ -11,6 +11,7 @@ import { Navigate, Outlet, Route, Routes } from "react-router-dom";
 import AppLoader from "./components/HOC/appLoader";
 import CreateGalleryForm from "./components/forms/createGalleryForm";
 import EditGalleryForm from "./components/forms/editGalleryForm";
+import LoginPage from "./pages/loginPage";
 // import AddPhotoForm from "./components/forms/addPhotoForm";
 
 // const DB_URL = "https://console.firebase.google.com/u/0/project/basic-photo-gallery/database/basic-photo-gallery-default-rtdb/data"
@@ -31,6 +32,10 @@ function App() {
                             {/* <Route path="add_photo" element={<AddPhotoForm/>}/> */}
                         </Route>
                         <Route path="create_album" element={<CreateGalleryForm/>}/>
+                    </Route>
+                    <Route path="login" element={<Outlet/>}>
+                        <Route index element={<LoginPage/>}/>
+                        <Route path="register" element={<LoginPage/>}/>
                     </Route>
                     <Route path="admin" element={<AdminPage/>}/>
                     <Route path="*" element={<Navigate to="/"/>}/>

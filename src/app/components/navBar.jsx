@@ -16,7 +16,7 @@ const NavBar = () => {
                 </div>
                 <div className="nav-block">
                     <div className="nav-item">
-                        Login
+                        <NavLink className="nav-link text-light" to="/login">Login</NavLink>
                     </div>
                 </div>
             </div>
