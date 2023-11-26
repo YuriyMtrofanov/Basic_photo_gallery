@@ -107,8 +107,8 @@
 
 .photo-card-img {
   /* border: 2px solid rgb(11, 176, 61); */
-  /* height: auto; */
-  max-height: 11vh;
+  height: auto;
+  /* max-height: 11vh; */
   overflow: hidden;
   width: 100%;
 }

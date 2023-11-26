@@ -1,8 +1,14 @@
 import React, { useState } from "react";
 import TextField from "./inputs/TextField";
 import DateField from "./inputs/DateField";
+import { useDispatch } from "react-redux";
+import { createUser } from "../../store/users";
+import { useNavigate } from "react-router-dom";
+import { nanoid } from "@reduxjs/toolkit";
 
 const RegisterForm = () => {
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
     const initialData = {
         email: "",
         password: "",
@@ -23,7 +29,18 @@ const RegisterForm = () => {
     };
     const handleSubmit = (event) => {
         event.preventDefault();
-        console.log("outputData", inputData);
+        const outputData = {
+            ...inputData,
+            id: `user-${nanoid()}`
+        };
+        try {
+            dispatch(createUser(outputData));
+            console.log("outputData", outputData);
+        } catch (error) {
+            console.error(error.message);
+        } finally {
+            navigate("/galleries");
+        }
     };
     return (
         <div className="login-form-container">
