@@ -5,8 +5,10 @@ import { useDispatch } from "react-redux";
 import { createUser } from "../../store/users";
 import { useNavigate } from "react-router-dom";
 import { nanoid } from "@reduxjs/toolkit";
+// import authService from "../../services/auth.service";
 
 const RegisterForm = () => {
+    // const { signUp } = authService;
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const initialData = {
@@ -35,6 +37,7 @@ const RegisterForm = () => {
         };
         try {
             dispatch(createUser(outputData));
+            // signUp(outputData);
             console.log("outputData", outputData);
         } catch (error) {
             console.error(error.message);

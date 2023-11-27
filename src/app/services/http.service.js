@@ -2,6 +2,9 @@ import axios from "axios";
 import configFile from "../config.json";
 import transformData from "../utils/transformData";
 
+// создаем отдельную ветку компонента axios, чтобы перезватывать запросы и вносить изменния
+// именно в эту ветку. Назовем её http и будем в дальнейшем использовать её при запросах
+// отдельную ветку сделаем для authService
 const http = axios.create({
     baseURL: configFile.apiEndpoint
 }); // задаем базовый URL для запросов
