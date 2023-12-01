@@ -10,6 +10,8 @@ const usersSlice = createSlice({
         entities: null,
         isLoading: true,
         error: null
+        // isLoggedIn: false,
+        // dataLoaded: false
     },
     redusers: {
         usersRequested: (state) => {
@@ -18,6 +20,7 @@ const usersSlice = createSlice({
         usersReceived: (state, action) => {
             state.entities = action.payload;
             state.isLoading = false;
+            // state.dataLoaded = true;
             state.error = null;
         },
         usersRequestFailed: (state, action) => {
@@ -43,6 +46,9 @@ const usersSlice = createSlice({
                 user.id !== action.payload
             );
         }
+        // authRequested: () => {},
+        // authRequestSucceeded: (satate, action) => {},
+        // authRequestFailed: () => {}
     }
 });
 

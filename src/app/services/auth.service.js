@@ -1,4 +1,3 @@
-// import httpService from "./http.service";
 import axios from "axios";
 import configFile from "../config.json";
 
@@ -10,6 +9,7 @@ const authEndpoint = `https://identitytoolkit.googleapis.com/v1/accounts:signUp?
 const httpAuth = axios.create({
     baseURL: configFile.apiEndpoint
 });
+
 const authService = {
     signUp: async (payload) => {
         const { email, password } = payload;
@@ -18,7 +18,13 @@ const authService = {
             password: password,
             returnSecureToken: true
         });
-        console.log("signUp data", data);
+        // console.log("request data", {
+        //     email: email,
+        //     password: password,
+        //     returnSecureToken: true
+        // });
+        // console.log("response data", data);
+        return data;
     }
 };
 
