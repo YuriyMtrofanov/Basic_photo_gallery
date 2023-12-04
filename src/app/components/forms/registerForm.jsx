@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import TextField from "./inputs/TextField";
 import DateField from "./inputs/DateField";
 import { useDispatch } from "react-redux";
-import { createUser } from "../../store/users";
+// import { createUser } from "../../store/users";
 import { useNavigate } from "react-router-dom";
-import { nanoid } from "@reduxjs/toolkit";
+// import { nanoid } from "@reduxjs/toolkit";
 import authService from "../../services/auth.service";
 
 const RegisterForm = () => {
@@ -13,7 +13,6 @@ const RegisterForm = () => {
     const navigate = useNavigate();
     const initialData = {
         email: "", // а точно ли нужно их в б/д отправлять таким образом?
-        password: "", // а точно ли нужно их в б/д отправлять таким образом?
         firstName: "",
         lastName: "",
         country: "",
@@ -31,14 +30,14 @@ const RegisterForm = () => {
     };
     const handleSubmit = (event) => {
         event.preventDefault();
-        const outputData = {
-            ...inputData,
-            id: `user-${nanoid()}`
-        };
+        // const outputData = {
+        //     ...inputData,
+        //     id: `user-${nanoid()}`
+        // };
         try {
-            dispatch(createUser(outputData));
-            signUp(outputData);
-            console.log("outputData", outputData);
+            // dispatch(createUser(outputData));
+            dispatch(signUp(inputData));
+            // console.log("outputData", outputData);
         } catch (error) {
             console.error(error.message);
         } finally {
