@@ -3,6 +3,8 @@ import {
     createSlice
 } from "@reduxjs/toolkit";
 import userService from "../services/user.service";
+// import authService from "../services/auth.service";
+// import localStorageService from "../services/localStorage.service";
 
 const usersSlice = createSlice({
     name: "users",
@@ -10,6 +12,7 @@ const usersSlice = createSlice({
         entities: null,
         isLoading: true,
         error: null
+        // auth: null,
         // isLoggedIn: false,
         // dataLoaded: false
     },
@@ -20,7 +23,7 @@ const usersSlice = createSlice({
         usersReceived: (state, action) => {
             state.entities = action.payload;
             state.isLoading = false;
-            // state.dataLoaded = true;
+            state.dataLoaded = true;
             state.error = null;
         },
         usersRequestFailed: (state, action) => {
@@ -47,8 +50,13 @@ const usersSlice = createSlice({
             );
         }
         // authRequested: () => {},
-        // authRequestSucceeded: (satate, action) => {},
-        // authRequestFailed: () => {}
+        // authRequestSucceeded: (state, action) => {
+        //     state.auth = action.payload;
+        //     state.isLoggedIn = true;
+        // },
+        // authRequestFailed: (state, action) => {
+        //     state.error = action.payload.error;
+        // }
     }
 });
 
@@ -60,6 +68,8 @@ const {
     userCreated,
     userEdited,
     userDeleted
+    // authRequestSucceeded,
+    // authRequestFailed
 } = actions;
 
 const userCreateRequested = createAction("users/userCreateRequested");
@@ -68,6 +78,7 @@ const userEditRequested = createAction("users/userEditRequested");
 const userEditFailed = createAction("users/userEditFailed");
 const userDeleteRequested = createAction("users/userDeleteRequested");
 const userDeleteFailed = createAction("users/userDeleteFailed");
+// const authRequested = createAction("users/authRequested");
 
 export const loadUsersList = () => async (dispatch) => {
     dispatch(usersRequested());
@@ -79,13 +90,27 @@ export const loadUsersList = () => async (dispatch) => {
     }
 };
 
+// export const createUser = (payload) => async (dispatch) => {
+//     dispatch(userCreateRequested());
+//     try {
+//         const { content } = await userService.createUser(payload);
+//         dispatch(userCreated(content));
+//     } catch (error) {
+//         dispatch(userCreateFailed(error.message));
+//     }
+// };
 export const createUser = (payload) => async (dispatch) => {
     dispatch(userCreateRequested());
+    // dispatch(authRequested());
     try {
         const { content } = await userService.createUser(payload);
+        // const data = await authService.signUp(payload);
         dispatch(userCreated(content));
+        // dispatch(authRequestSucceeded({ userId: content.id }));
+        // localStorageService.setTokens(data);
     } catch (error) {
         dispatch(userCreateFailed(error.message));
+        // dispatch(authRequestFailed(error.message));
     }
 };
 
