@@ -1,7 +1,4 @@
-import {
-    createAction,
-    createSlice
-} from "@reduxjs/toolkit";
+import { createAction, createSlice } from "@reduxjs/toolkit";
 import userService from "../services/user.service";
 import authService from "../services/auth.service";
 import localStorageService from "../services/localStorage.service";
@@ -23,11 +20,12 @@ const initialState = localStorageService.getAccessToken()
         isLoggedIn: false,
         dataLoaded: false
     };
+console.log("initialState", initialState);
 
 const usersSlice = createSlice({
     name: "users",
     initialState: initialState,
-    redusers: {
+    reducers: {
         usersRequested: (state) => {
             state.isLoading = true;
         },
@@ -35,7 +33,6 @@ const usersSlice = createSlice({
             state.entities = action.payload;
             state.isLoading = false;
             state.dataLoaded = true;
-            state.error = null;
         },
         usersRequestFailed: (state, action) => {
             state.isLoading = false;
@@ -66,7 +63,8 @@ const usersSlice = createSlice({
             state.isLoggedIn = true;
         },
         authRequestFailed: (state, action) => {
-            state.error = action.payload.error;
+            // state.error = action.payload.error;
+            state.error = action.payload;
         }
     }
 });
@@ -78,9 +76,9 @@ const {
     usersRequestFailed,
     // userCreated,
     userEdited,
-    userDeleted
-    // authRequestSucceeded,
-    // authRequestFailed
+    userDeleted,
+    authRequestSucceeded,
+    authRequestFailed
 } = actions;
 
 // const userCreateRequested = createAction("users/userCreateRequested");
@@ -94,7 +92,7 @@ const authRequested = createAction("users/authRequested");
 export const loadUsersList = () => async (dispatch) => {
     dispatch(usersRequested());
     try {
-        const { content } = await userService.getAllUsers();
+        const { content } = await userService.getUsersList();
         dispatch(usersReceived(content));
     } catch (error) {
         dispatch(usersRequestFailed(error.message));
@@ -123,16 +121,28 @@ export const loadUsersList = () => async (dispatch) => {
 //     }
 // };
 
-export const createNewUser = (payload) => async (dispatch) => {
+export const signUp = (payload) => async (dispatch) => {
     dispatch(authRequested());
     const { email, password, ...rest } = payload;
     try {
         const data = await authService.register({ email: email, password: password, returnSecureToken: true });
         userService.createUser({ email: email, id: data.localId, ...rest });
         localStorageService.setTokens(data);
-        // dispatch(authRequestSucceeded({ userId: data.localId }));
+        dispatch(authRequestSucceeded({ userId: data.localId }));
     } catch (error) {
-        // dispatch(authRequestFailed(error.message));
+        dispatch(authRequestFailed(error.message));
+    }
+};
+
+export const logIn = (payload) => async (dispatch) => {
+    dispatch(authRequested());
+    const { email, password } = payload;
+    try {
+        const data = await authService.login({ email, password });
+        localStorageService.setTokens(data);
+        dispatch(authRequestSucceeded({ userId: data.localId }));
+    } catch (error) {
+        dispatch(authRequestFailed(error.message));
     }
 };
 

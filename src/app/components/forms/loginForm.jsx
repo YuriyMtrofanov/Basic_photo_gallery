@@ -1,9 +1,12 @@
 import React, { useState } from "react";
 import TextField from "./inputs/TextField";
-import authService from "../../services/auth.service";
+import { useDispatch } from "react-redux";
+import { logIn } from "../../store/users";
+// import authService from "../../services/auth.service";
 
 const LoginForm = () => {
-    const { login } = authService;
+    // const { login } = authService;
+    const dispatch = useDispatch();
     const initialData = {
         email: "",
         password: ""
@@ -15,9 +18,11 @@ const LoginForm = () => {
             [target.name]: target.value
         }));
     };
+
     const handleSubmit = (event) => {
         event.preventDefault();
-        login(inputData);
+        dispatch(logIn(inputData));
+        // login(inputData);
         // console.log("outputData", inputData);
     };
     return (

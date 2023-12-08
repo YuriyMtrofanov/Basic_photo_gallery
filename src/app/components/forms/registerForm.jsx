@@ -6,7 +6,7 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 // import { nanoid } from "@reduxjs/toolkit";
 // import authService from "../../services/auth.service";
-import { createNewUser } from "../../store/users";
+import { signUp } from "../../store/users";
 // import { createUser } from "../../store/users";
 
 const RegisterForm = () => {
@@ -36,7 +36,7 @@ const RegisterForm = () => {
         event.preventDefault();
         try {
             // await dispatch(signUp(inputData));
-            dispatch(createNewUser(inputData));
+            dispatch(signUp(inputData));
         } catch (error) {
             setErrors(error);
             console.log("errors", errors);
