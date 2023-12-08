@@ -4,18 +4,29 @@ import {
 } from "@reduxjs/toolkit";
 import userService from "../services/user.service";
 import authService from "../services/auth.service";
-// import localStorageService from "../services/localStorage.service";
+import localStorageService from "../services/localStorage.service";
 
-const usersSlice = createSlice({
-    name: "users",
-    initialState: {
+const initialState = localStorageService.getAccessToken()
+    ? {
         entities: null,
         isLoading: true,
+        error: null,
+        auth: { userId: localStorageService.getCurrentUserId() },
+        isLoggedIn: true,
+        dataLoaded: false
+    }
+    : {
+        entities: null,
+        isLoading: false,
         error: null,
         auth: null,
         isLoggedIn: false,
         dataLoaded: false
-    },
+    };
+
+const usersSlice = createSlice({
+    name: "users",
+    initialState: initialState,
     redusers: {
         usersRequested: (state) => {
             state.isLoading = true;
@@ -30,12 +41,12 @@ const usersSlice = createSlice({
             state.isLoading = false;
             state.error = action.payload;
         },
-        userCreated: (state, action) => {
-            if (!Array.isArray(state.entities)) {
-                state.entities = [];
-            }
-            state.entities.push(action.payload);
-        },
+        // userCreated: (state, action) => {
+        //     if (!Array.isArray(state.entities)) {
+        //         state.entities = [];
+        //     }
+        //     state.entities.push(action.payload);
+        // },
         userEdited: (state, action) => {
             if (!Array.isArray(state.entities)) {
                 state.entities = [];
@@ -67,9 +78,9 @@ const {
     usersRequestFailed,
     // userCreated,
     userEdited,
-    userDeleted,
-    authRequestSucceeded,
-    authRequestFailed
+    userDeleted
+    // authRequestSucceeded,
+    // authRequestFailed
 } = actions;
 
 // const userCreateRequested = createAction("users/userCreateRequested");
@@ -99,13 +110,29 @@ export const loadUsersList = () => async (dispatch) => {
 //         dispatch(userCreateFailed(error.message));
 //     }
 // };
-export const createUser = (payload) => async (dispatch) => {
+
+// export const createUser = (payload) => async (dispatch) => {
+//     dispatch(authRequested());
+//     try {
+//         const { content } = await authService.signUp(payload);
+//         console.log("createUser data", content);
+//         // localStorageService.setTokens(data);
+//         dispatch(authRequestSucceeded({ userId: content.id }));
+//     } catch (error) {
+//         dispatch(authRequestFailed(error.message));
+//     }
+// };
+
+export const createNewUser = (payload) => async (dispatch) => {
     dispatch(authRequested());
+    const { email, password, ...rest } = payload;
     try {
-        const { content } = await authService.signUp(payload);
-        dispatch(authRequestSucceeded({ userId: content.id }));
+        const data = await authService.register({ email: email, password: password, returnSecureToken: true });
+        userService.createUser({ email: email, id: data.localId, ...rest });
+        localStorageService.setTokens(data);
+        // dispatch(authRequestSucceeded({ userId: data.localId }));
     } catch (error) {
-        dispatch(authRequestFailed(error.message));
+        // dispatch(authRequestFailed(error.message));
     }
 };
 

@@ -5,14 +5,17 @@ import { useDispatch } from "react-redux";
 // import { createUser } from "../../store/users";
 import { useNavigate } from "react-router-dom";
 // import { nanoid } from "@reduxjs/toolkit";
-import authService from "../../services/auth.service";
+// import authService from "../../services/auth.service";
+import { createNewUser } from "../../store/users";
+// import { createUser } from "../../store/users";
 
 const RegisterForm = () => {
-    const { signUp } = authService;
+    // const { signUp } = authService;
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const initialData = {
         email: "", // а точно ли нужно их в б/д отправлять таким образом?
+        password: "",
         firstName: "",
         lastName: "",
         country: "",
@@ -28,18 +31,15 @@ const RegisterForm = () => {
             [target.name]: target.value
         }));
     };
-    const handleSubmit = (event) => {
+    const [errors, setErrors] = useState({});
+    const handleSubmit = async (event) => {
         event.preventDefault();
-        // const outputData = {
-        //     ...inputData,
-        //     id: `user-${nanoid()}`
-        // };
         try {
-            // dispatch(createUser(outputData));
-            dispatch(signUp(inputData));
-            // console.log("outputData", outputData);
+            // await dispatch(signUp(inputData));
+            dispatch(createNewUser(inputData));
         } catch (error) {
-            console.error(error.message);
+            setErrors(error);
+            console.log("errors", errors);
         } finally {
             navigate("/galleries");
         }
@@ -98,7 +98,7 @@ const RegisterForm = () => {
             />
             <DateField
                 label="Дата рождения"
-                type="text"
+                type="date"
                 name="birthDate"
                 value={inputData.birthDate}
                 onChange={handleChange}

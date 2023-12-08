@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import TextField from "./inputs/TextField";
+import authService from "../../services/auth.service";
 
 const LoginForm = () => {
+    const { login } = authService;
     const initialData = {
         email: "",
         password: ""
@@ -15,7 +17,8 @@ const LoginForm = () => {
     };
     const handleSubmit = (event) => {
         event.preventDefault();
-        console.log("outputData", inputData);
+        login(inputData);
+        // console.log("outputData", inputData);
     };
     return (
         <div className="login-form-container">

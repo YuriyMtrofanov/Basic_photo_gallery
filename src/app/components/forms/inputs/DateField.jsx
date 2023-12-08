@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 
 const DateField = ({
     label,
+    type,
     name,
     value,
     onChange,
@@ -17,16 +18,12 @@ const DateField = ({
     };
 
     return (
-        <div className="mb-4 text-secondary">
-            <label htmlFor="inputDate">{ label }</label>
+        <div className="mb-4 text">
+            {/* <label htmlFor="inputDate">{ label }</label> */}
+            <label >{ label }</label>
             <div className="input-group date has-validation">
                 <input
-                    style={{
-                        backgroundColor: "rgb(10, 24, 44)",
-                        borderColor: "grey",
-                        marginLeft: "auto"
-                    }}
-                    type = "date"
+                    type = {type}
                     id = {name}
                     name = {name}
                     value = {value}
