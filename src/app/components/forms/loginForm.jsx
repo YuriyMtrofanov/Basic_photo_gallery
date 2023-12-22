@@ -2,10 +2,12 @@ import React, { useState } from "react";
 import TextField from "./inputs/TextField";
 import { useDispatch } from "react-redux";
 import { logIn } from "../../store/users";
+import { useNavigate } from "react-router-dom";
 // import authService from "../../services/auth.service";
 
 const LoginForm = () => {
     // const { login } = authService;
+    const navigate = useNavigate();
     const dispatch = useDispatch();
     const initialData = {
         email: "",
@@ -22,6 +24,7 @@ const LoginForm = () => {
     const handleSubmit = (event) => {
         event.preventDefault();
         dispatch(logIn(inputData));
+        navigate("/galleries");
         // login(inputData);
         // console.log("outputData", inputData);
     };

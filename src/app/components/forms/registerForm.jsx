@@ -31,18 +31,11 @@ const RegisterForm = () => {
             [target.name]: target.value
         }));
     };
-    const [errors, setErrors] = useState({});
-    const handleSubmit = async (event) => {
+    // const [errors, setErrors] = useState({});
+    const handleSubmit = (event) => {
         event.preventDefault();
-        try {
-            // await dispatch(signUp(inputData));
-            dispatch(signUp(inputData));
-        } catch (error) {
-            setErrors(error);
-            console.log("errors", errors);
-        } finally {
-            navigate("/galleries");
-        }
+        dispatch(signUp(inputData));
+        navigate("/galleries");
     };
     return (
         <div className="login-form-container">

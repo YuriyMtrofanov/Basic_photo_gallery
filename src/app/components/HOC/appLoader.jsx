@@ -15,7 +15,7 @@ const AppLoader = ({ children }) => {
         dispatch(loadPhotosList());
         dispatch(loadUsersList());
     }, []);
-    if (galleriesLoadingStatus || photosLoadingStatus || usersLoadingStatus) return "Loading...";
+    if (galleriesLoadingStatus && photosLoadingStatus && usersLoadingStatus) return "Loading...";
     return children;
 };
 
