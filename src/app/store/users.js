@@ -20,7 +20,7 @@ const initialState = localStorageService.getAccessToken()
         isLoggedIn: false,
         dataLoaded: false
     };
-console.log("initialState", initialState);
+// console.log("initialState", initialState);
 
 const usersSlice = createSlice({
     name: "users",
@@ -171,5 +171,6 @@ export const deleteUser = (id) => async (dispatch) => {
 export const getAllUsers = () => (state) => state.users.entities;
 export const getUsersLoadingStatus = () => (state) => state.users.isLoading;
 export const getCurrentUser = (id) => (state) => state.users.entities.find(user => user.id === id);
+export const getIsLoggedIn = () => (state) => state.users.isLoggedIn;
 
 export default usersReducer;

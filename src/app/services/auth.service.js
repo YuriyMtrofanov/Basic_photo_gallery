@@ -6,10 +6,11 @@ import configFile from "../config.json";
 const apiKey = "AIzaSyDa6XZtyVsTy77gFKP8FDwI48KEfio9Uuc";
 const authEndpoint = `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${apiKey}`; // https://firebase.google.com/docs/reference/rest/auth#section-create-email-password
 const loginEndpoint = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${apiKey}`;
+const refreshEndpoint = `https://securetoken.googleapis.com/v1/token?key=${apiKey}`;
 
 // В данном случае создается отдельная ветка библиотеки т.к. при использовании ветки http происходит
 // перехват и преобразование данных
-const httpAuth = axios.create({
+export const httpAuth = axios.create({
     baseURL: configFile.apiEndpoint + "/auth/"
 });
 
@@ -69,6 +70,11 @@ const authService = {
             returnSecureToken: true
         });
         console.log("login data", data);
+        return data;
+    },
+    refresh: async (payload) => {
+        const { data } = await httpAuth.post(refreshEndpoint, payload);
+        console.log("refresh_token", data);
         return data;
     }
 };
