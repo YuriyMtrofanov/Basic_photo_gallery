@@ -170,13 +170,15 @@ export const deleteUser = (id) => async (dispatch) => {
 
 export const getAllUsers = () => (state) => state.users.entities;
 export const getUsersLoadingStatus = () => (state) => state.users.isLoading;
-export const getCurrentUser = (id) => (state) => state.users.entities.find(user => user.id === id);
 export const getIsLoggedIn = () => (state) => state.users.isLoggedIn;
-export const getUserAccountType = () => (state) => {
-    console.log("state.users.entities", state.users.entities);
+export const getCurrentUser = () => (state) => {
+    return state.users.entities.find(user => user.id === state.users.auth.userId);
     // if (state.users.entities) {
-    //     return state.users.entities.find(user => user.id === state.users.auth.userId).type;
-    // }
+    //     state.users.entities.find(user => user.id === state.users.auth.userId);
+    // } else return null;
+};
+export const getUserAccountType = () => (state) => {
+    return state.users.entities.find(user => user.id === state.users.auth.userId).type;
 };
 
 export default usersReducer;
