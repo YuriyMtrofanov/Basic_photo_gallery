@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 // import { nanoid } from "@reduxjs/toolkit";
 // import authService from "../../services/auth.service";
 import { signUp } from "../../store/users";
+import RadioField from "./inputs/RadioField";
 // import { createUser } from "../../store/users";
 
 const RegisterForm = () => {
@@ -22,7 +23,7 @@ const RegisterForm = () => {
         city: "",
         img: "",
         birthDate: "",
-        type: "admin" || "user" // можно через checkbox
+        type: "user" || "admin" // можно через checkbox
     };
     const [inputData, setInputData] = useState(initialData);
     const handleChange = (target) => {
@@ -94,6 +95,16 @@ const RegisterForm = () => {
                 type="date"
                 name="birthDate"
                 value={inputData.birthDate}
+                onChange={handleChange}
+            />
+            <RadioField
+                options={[
+                    { name: "User", value: "user" },
+                    { name: "Admin", value: "admin" }
+                ]}
+                name="type"
+                label="Тип учетной записи"
+                value={inputData.type}
                 onChange={handleChange}
             />
             <button

@@ -11,7 +11,7 @@ const http = axios.create({
     baseURL: configFile.apiEndpoint
 }); // задаем базовый URL для запросов
 
-// Перехват запроск к серверу
+// Перехват запроса к серверу
 http.interceptors.request.use(
     async function (config) {
         const refreshToken = localStorageService.getRefreshToken();
