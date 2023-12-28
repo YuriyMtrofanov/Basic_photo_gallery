@@ -65,6 +65,12 @@ const usersSlice = createSlice({
         authRequestFailed: (state, action) => {
             // state.error = action.payload.error;
             state.error = action.payload;
+        },
+        userLoggedOut: (state) => {
+            state.entities = null;
+            state.isLoggedIn = false;
+            state.auth = null;
+            state.dataLoaded = false;
         }
     }
 });
@@ -74,7 +80,7 @@ const {
     usersRequested,
     usersReceived,
     usersRequestFailed,
-    // userCreated,
+    userLoggedOut,
     userEdited,
     userDeleted,
     authRequestSucceeded,
@@ -146,6 +152,11 @@ export const logIn = (payload) => async (dispatch) => {
     }
 };
 
+export const logOut = () => async (dispatch) => {
+    dispatch(userLoggedOut());
+    localStorageService.removeAuthData();
+};
+
 export const editUser = (payload) => async (dispatch) => {
     dispatch(userEditRequested());
     try {
@@ -169,16 +180,18 @@ export const deleteUser = (id) => async (dispatch) => {
 };
 
 export const getAllUsers = () => (state) => state.users.entities;
+export const getDataStatus = () => (state) => state.users.dataLoaded;
 export const getUsersLoadingStatus = () => (state) => state.users.isLoading;
 export const getIsLoggedIn = () => (state) => state.users.isLoggedIn;
 export const getCurrentUser = () => (state) => {
-    return state.users.entities.find(user => user.id === state.users.auth.userId);
-    // if (state.users.entities) {
-    //     state.users.entities.find(user => user.id === state.users.auth.userId);
-    // } else return null;
+    if (state.users.entities && state.users.auth) {
+        return state.users.entities.find(user => user.id === state.users.auth.userId);
+    }
 };
 export const getUserAccountType = () => (state) => {
-    return state.users.entities.find(user => user.id === state.users.auth.userId).type;
+    return state.users.auth && state.users.entities
+        ? state.users.entities.find(user => user.id === state.users.auth.userId).type
+        : "";
 };
 
 export default usersReducer;

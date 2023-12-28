@@ -40,7 +40,7 @@ function App() {
                     </Route>
                     <Route path="logout" element={<LogoutPage/>}/>
                     <Route path="admin" element={<AdminPage/>}/>
-                    <Route path="*" element={<Navigate to="/"/>}/>
+                    <Route path="*" element={<Navigate to="/login"/>}/>
                 </Routes>
             </div>
         </AppLoader>

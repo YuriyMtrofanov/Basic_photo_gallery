@@ -18,7 +18,7 @@ const NavBar = () => {
                     <div className="nav-item">
                         <NavLink className="nav-link text-light" to="/galleries">Galleries</NavLink>
                     </div>
-                    {isLoggedIn && userAccountType === "admin" &&
+                    {isLoggedIn && userAccountType && userAccountType === "admin" &&
                         <div className="nav-item">
                             <NavLink className="nav-link text-light" to="/admin">Admin</NavLink>
                         </div>
