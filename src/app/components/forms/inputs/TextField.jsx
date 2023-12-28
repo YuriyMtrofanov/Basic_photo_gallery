@@ -6,10 +6,15 @@ const TextField = ({
     type,
     label,
     value,
-    onChange
+    onChange,
+    error,
+    placeholder
 }) => {
     const handleChange = ({ target }) => {
         onChange({ name: target.name, value: target.value });
+    };
+    const getInputClasses = () => {
+        return "text-secondary form-control" + (error ? " is-invalid" : "");
     };
     return (
         <div className="text-field mt-2">
@@ -20,9 +25,11 @@ const TextField = ({
                     name={ name }
                     type={ type }
                     value={ value }
-                    className="form-control"
                     onChange={handleChange}
+                    className = {getInputClasses()}
+                    placeholder = {placeholder === "Search" ? "Search" : ""}
                 />
+                <div className="invalid-feedback">{error}</div>
             </div>
         </div>
     );
@@ -33,7 +40,9 @@ TextField.propTypes = {
     type: PropTypes.string,
     label: PropTypes.string,
     value: PropTypes.string,
-    onChange: PropTypes.func
+    onChange: PropTypes.func,
+    error: PropTypes.string,
+    placeholder: PropTypes.string
 };
 
 export default TextField;

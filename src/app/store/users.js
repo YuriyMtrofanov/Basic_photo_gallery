@@ -189,9 +189,8 @@ export const getCurrentUser = () => (state) => {
     }
 };
 export const getUserAccountType = () => (state) => {
-    return state.users.auth && state.users.entities
-        ? state.users.entities.find(user => user.id === state.users.auth.userId).type
-        : "";
+    return state.users.auth && state.users.entities &&
+        state.users.entities.find(user => user.id === state.users.auth.userId).type;
 };
 
 export default usersReducer;
