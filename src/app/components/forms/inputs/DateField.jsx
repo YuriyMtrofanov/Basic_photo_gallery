@@ -17,15 +17,15 @@ const DateField = ({
         return "text-secondary form-control" + (error ? " is-invalid" : "");
     };
 
+    console.log("error", error);
     return (
         <div className="mb-4 text">
-            {/* <label htmlFor="inputDate">{ label }</label> */}
             <label >{ label }</label>
-            <div className="input-group date has-validation">
+            <div htmlFor={name} className="input-group date has-validation">
                 <input
-                    type = {type}
                     id = {name}
                     name = {name}
+                    type = {type}
                     value = {value}
                     onChange = {handleChange}
                     className = {getInputClasses()}
@@ -33,8 +33,7 @@ const DateField = ({
                 <span className="input-group-addon">
                     <span className="glyphicon glyphicon-calendar"></span>
                 </span>
-                {error &&
-                    <div className="invalid-feedback">{error}</div>}
+                <div className="invalid-feedback">{error}</div>
             </div>
         </div>
     );
@@ -46,8 +45,7 @@ DateField.propTypes = {
     name: PropTypes.string,
     value: PropTypes.string,
     onChange: PropTypes.func,
-    error: PropTypes.string,
-    placeholder: PropTypes.string
+    error: PropTypes.string
 };
 
 export default DateField;

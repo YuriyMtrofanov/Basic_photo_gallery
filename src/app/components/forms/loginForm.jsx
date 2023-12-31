@@ -5,7 +5,7 @@ import { logIn } from "../../store/users";
 import { useNavigate } from "react-router-dom";
 import { validator } from "../../utils/validator";
 import useValidate from "../hooks/useValidate";
-import userValidationConfig from "../../constants/loginValidationConfig";
+import loginValidationConfig from "../../constants/loginValidationConfig";
 
 const LoginForm = () => {
     const navigate = useNavigate();
@@ -15,7 +15,7 @@ const LoginForm = () => {
         password: ""
     };
     const [inputData, setInputData] = useState(initialData);
-    const { errors, isAbled, validate } = useValidate({}, inputData, validator, userValidationConfig);
+    const { errors, isAbled, validate } = useValidate({}, inputData, validator, loginValidationConfig);
     const [enterError, setEnterError] = useState(null);
 
     const handleChange = (target) => {

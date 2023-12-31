@@ -1,4 +1,4 @@
-const userValidationConfig = {
+const loginValidationConfig = {
     email: {
         isRequired: {
             message: `Поле Email обязательно к заполнению`
@@ -24,4 +24,4 @@ const userValidationConfig = {
     }
 };
 
-export default userValidationConfig;
+export default loginValidationConfig;
