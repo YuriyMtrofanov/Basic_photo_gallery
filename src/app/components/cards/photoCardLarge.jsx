@@ -4,6 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import DeleteButton from "../buttons/deleteButton";
 import PropTypes from "prop-types";
 import { getCurrentGallery, updateGallery } from "../../store/galleries";
+import { getUserAccountType } from "../../store/users";
 
 const PhotoCardLarge = ({ image, id }) => {
     const dispatch = useDispatch();
@@ -11,6 +12,7 @@ const PhotoCardLarge = ({ image, id }) => {
     const { galleryId } = useParams();
     const currentGallery = useSelector(getCurrentGallery(galleryId));
     const { photos, titlePhoto } = currentGallery;
+    const isAdmin = useSelector(getUserAccountType());
 
     const handleDelete = () => {
         const editedPhotos = photos.filter(item => item !== id);
@@ -35,7 +37,7 @@ const PhotoCardLarge = ({ image, id }) => {
                 src={image}
                 alt="photo"
             />
-            <DeleteButton onDelete={handleDelete}/>
+            {isAdmin === "admin" && <DeleteButton onDelete={handleDelete}/>}
         </div>
     );
 };

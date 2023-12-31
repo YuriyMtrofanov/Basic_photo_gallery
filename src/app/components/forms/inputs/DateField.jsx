@@ -18,6 +18,7 @@ const DateField = ({
     };
 
     console.log("error", error);
+
     return (
         <div className="mb-4 text">
             <label >{ label }</label>

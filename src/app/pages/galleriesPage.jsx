@@ -10,19 +10,10 @@ import { NavLink } from "react-router-dom";
 import DefaultGalleryCerd from "../components/cards/defaultGalleryCard";
 import GalleryCard from "../components/cards/galleryCard";
 import BackButton from "../components/buttons/backButton";
-// import localStorageService from "../services/localStorage.service";
-// import { getCurrentUser } from "../store/users";
 
 const GalleriesPage = () => {
     const galleries = useSelector(getGalleriesList());
     const photos = useSelector(getAllPhotos());
-
-    // рабочий вызов информации о пользователе
-    // if (localStorageService.getAccessToken()) {
-    //     const userId = localStorageService.getCurrentUserId();
-    //     const userData = useSelector(getCurrentUser(userId));
-    //     console.log("received user data", userData);
-    // }
 
     if (!galleries || !photos) return "Loading...";
     return (
