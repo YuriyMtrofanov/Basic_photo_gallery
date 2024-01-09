@@ -23,7 +23,6 @@ function App() {
         <AppLoader>
             <NavBar/>
             <div className="app-container">
-                {/* <NavBar/> */}
                 <Routes>
                     <Route path="galleries" element={<Outlet/>}>
                         <Route index element={<GalleriesPage/>}/>
