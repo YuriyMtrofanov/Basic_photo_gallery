@@ -20,7 +20,6 @@ const initialState = localStorageService.getAccessToken()
         isLoggedIn: false,
         dataLoaded: false
     };
-// console.log("initialState", initialState);
 
 const usersSlice = createSlice({
     name: "users",
@@ -38,12 +37,6 @@ const usersSlice = createSlice({
             state.isLoading = false;
             state.error = action.payload;
         },
-        // userCreated: (state, action) => {
-        //     if (!Array.isArray(state.entities)) {
-        //         state.entities = [];
-        //     }
-        //     state.entities.push(action.payload);
-        // },
         userEdited: (state, action) => {
             if (!Array.isArray(state.entities)) {
                 state.entities = [];
@@ -57,13 +50,11 @@ const usersSlice = createSlice({
                 user.id !== action.payload
             );
         },
-        // authRequested: () => {},
         authRequestSucceeded: (state, action) => {
             state.auth = action.payload;
             state.isLoggedIn = true;
         },
         authRequestFailed: (state, action) => {
-            // state.error = action.payload.error;
             state.error = action.payload;
         },
         userLoggedOut: (state) => {
@@ -87,8 +78,6 @@ const {
     authRequestFailed
 } = actions;
 
-// const userCreateRequested = createAction("users/userCreateRequested");
-// const userCreateFailed = createAction("users/userCreateFailed");
 const userEditRequested = createAction("users/userEditRequested");
 const userEditFailed = createAction("users/userEditFailed");
 const userDeleteRequested = createAction("users/userDeleteRequested");
@@ -104,28 +93,6 @@ export const loadUsersList = () => async (dispatch) => {
         dispatch(usersRequestFailed(error.message));
     }
 };
-
-// export const createUser = (payload) => async (dispatch) => {
-//     dispatch(userCreateRequested());
-//     try {
-//         const { content } = await userService.createUser(payload);
-//         dispatch(userCreated(content));
-//     } catch (error) {
-//         dispatch(userCreateFailed(error.message));
-//     }
-// };
-
-// export const createUser = (payload) => async (dispatch) => {
-//     dispatch(authRequested());
-//     try {
-//         const { content } = await authService.signUp(payload);
-//         console.log("createUser data", content);
-//         // localStorageService.setTokens(data);
-//         dispatch(authRequestSucceeded({ userId: content.id }));
-//     } catch (error) {
-//         dispatch(authRequestFailed(error.message));
-//     }
-// };
 
 export const signUp = (payload) => async (dispatch) => {
     dispatch(authRequested());
