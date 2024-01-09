@@ -13,6 +13,7 @@ import CreateGalleryForm from "./components/forms/createGalleryForm";
 import EditGalleryForm from "./components/forms/editGalleryForm";
 import LoginPage from "./pages/loginPage";
 import LogoutPage from "./pages/logoutPage";
+import EditUserForm from "./components/forms/editUserForm";
 // import AddPhotoForm from "./components/forms/addPhotoForm";
 
 // const DB_URL = "https://console.firebase.google.com/u/0/project/basic-photo-gallery/database/basic-photo-gallery-default-rtdb/data"
@@ -37,6 +38,9 @@ function App() {
                     <Route path="login" element={<Outlet/>}>
                         <Route index element={<LoginPage/>}/>
                         <Route path="register" element={<LoginPage/>}/>
+                    </Route>
+                    <Route path="users" element={<Outlet/>}>
+                        <Route path=":userId" element={<EditUserForm/>}/>
                     </Route>
                     <Route path="logout" element={<LogoutPage/>}/>
                     <Route path="admin" element={<AdminPage/>}/>

@@ -17,8 +17,6 @@ const DateField = ({
         return "text-secondary form-control" + (error ? " is-invalid" : "");
     };
 
-    console.log("error", error);
-
     return (
         <div className="mb-4 text">
             <label >{ label }</label>

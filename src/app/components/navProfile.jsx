@@ -6,6 +6,7 @@ import { NavLink } from "react-router-dom";
 const NavProfile = () => {
     const [active, setActive] = useState(false);
     const currentUser = useSelector(getCurrentUser());
+
     const handleActive = () => {
         setActive(prevState => !prevState);
     };
@@ -28,8 +29,8 @@ const NavProfile = () => {
                     <div
                         className={"w-100 text-light dropdown-menu" + (active ? " show" : "")}
                     >
-                        <NavLink to="/logout" className="dropdown-item">Log Out</NavLink>
-                        {/* <NavLink to="/logout" className="dropdown-item">Log Out</NavLink> */}
+                        <NavLink to={`/users/${currentUser.id}`} className="dropdown-item">Редактировать профиль</NavLink>
+                        <NavLink to="/logout" className="dropdown-item">Выйти из системы</NavLink>
                         {/* <NavLink to="/logout" className="dropdown-item">Log Out</NavLink> */}
                     </div>
                 </div>

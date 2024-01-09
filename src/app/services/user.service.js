@@ -23,7 +23,7 @@ const userService = {
     },
     updateUser: async (payload) => {
         const URL = `${userEndpoint}/${payload.id}.json`;
-        const { data } = await httpService.post.apply(URL, payload);
+        const { data } = await httpService.patch(URL, payload);
         return data;
     },
     deleteUser: async (id) => {

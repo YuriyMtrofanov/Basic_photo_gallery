@@ -161,6 +161,7 @@ export const editUser = (payload) => async (dispatch) => {
     dispatch(userEditRequested());
     try {
         const { content } = await userService.updateUser(payload);
+        console.log("content", content);
         dispatch(userEdited(content));
     } catch (error) {
         dispatch(userEditFailed(error.message));

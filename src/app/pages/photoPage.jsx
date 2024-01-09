@@ -15,7 +15,7 @@ const PhotoPage = () => {
     const currentGallery = useSelector(getCurrentGallery(galleryId));
     const { photos, titlePhoto } = currentGallery;
 
-    const handleDelete = ({ id }) => {
+    const handleDelete = (id) => {
         const editedPhotos = photos.filter(item => item !== id);
         const editedTitlePhoto = titlePhoto === id ? editedPhotos[0] : titlePhoto;
         const editedGallery = {
