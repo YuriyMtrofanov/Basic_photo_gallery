@@ -4,14 +4,14 @@ import { NavLink, useParams } from "react-router-dom";
 import { getCurrentGallery, updateGallery } from "../store/galleries";
 import { getAllPhotos } from "../store/photos";
 import BackButton from "../components/buttons/backButton";
-import DeleteButton from "../components/buttons/deleteButton";
+import PhotoCaldLinked from "../components/cards/photoCardLinked";
 
 const Gallery = () => {
     const dispatch = useDispatch();
     const { galleryId } = useParams();
+    const allPhotos = useSelector(getAllPhotos()); // массив из объектов фотографий
     const currentGallery = useSelector(getCurrentGallery(galleryId));
     const { photos, titlePhoto } = currentGallery; // id-шники фотографий
-    const allPhotos = useSelector(getAllPhotos()); // массив из объектов фотографий
 
     function getPhotos() {
         if (photos) {
@@ -44,14 +44,12 @@ const Gallery = () => {
                 <h1>{currentGallery.name}</h1>
                 {photos
                     ? (galleryPhotos.map((photo) => (
-                        <div key={photo.id} className="col-xlg-2 col-lg-3 col-md-6 col-sm-12">
-                            <div className="photo-card">
-                                <NavLink className="nav-link" to={`${photo.id}`}>
-                                    <img src={photo.URL} className="photo-card-img" alt="photo"/>
-                                </NavLink>
-                                <DeleteButton onDelete={() => handleDelete(photo.id)}/>
-                            </div>
-                        </div>)))
+                        <PhotoCaldLinked
+                            key={photo.id}
+                            photoId={photo.id}
+                            img={photo.URL}
+                            onDelete={handleDelete}
+                        />)))
                     : (<h1>В альбоме нет фотографий</h1>)
                 }
             </div>

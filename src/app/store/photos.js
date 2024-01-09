@@ -9,6 +9,7 @@ const photoSlice = createSlice({
     initialState: {
         entities: null,
         isLoading: true,
+        photosDataLoaded: false,
         error: null
     },
     reducers: {
@@ -18,21 +19,19 @@ const photoSlice = createSlice({
         photosReceived: (state, action) => {
             state.entities = action.payload;
             state.isLoading = false;
+            state.photosDataLoaded = true;
             state.error = null;
         },
         photosRequestFailed: (state, action) => {
             state.error = action.payload;
             state.isLoading = false;
         },
-        // photoCreateRequested
         photoCreated: (state, action) => {
             if (!Array.isArray(state.entities)) {
                 state.entities = [];
             }
             state.entities.push(action.payload);
         },
-        // photoCreateFailed
-        // photoEditRequested
         photoEdited: (state, action) => {
             if (!Array.isArray(state.entities)) {
                 state.entities = [];
@@ -41,12 +40,9 @@ const photoSlice = createSlice({
                 photo.id === action.payload.id
             )] = action.payload;
         },
-        // photoEditFailed
-        // photoDeleteRequested
         photoDeleted: (state, action) => {
             state.entities = state.entities.filter(item => item.id !== action.payload);
         }
-        // photoDeleteFailed
     }
 });
 
@@ -79,7 +75,6 @@ export const loadPhotosList = () => async (dispatch) => {
 
 export const createPhoto = (payload) => async (dispatch) => {
     dispatch(photoCreateRequested());
-    // console.log("payload", payload);
     try {
         const { content } = await photoService.addPhoto(payload);
         dispatch(photoCreated(content));
@@ -111,7 +106,7 @@ export const deletePhoto = (id) => async (dispatch) => {
 };
 
 export const getAllPhotos = () => (state) => state.photos.entities;
-export const getPhotosLoadStatus = () => (state) => state.photos.isLoading;
+export const getPhotosDataStatus = () => (state) => state.photos.photosDataLoaded;
 export const getCurrentPhoto = (id) => (state) => state.photos.entities.find(photo => photo.id === id);
 
 export default photosReducer;

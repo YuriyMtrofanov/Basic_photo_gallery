@@ -9,6 +9,7 @@ const galleriesSlice = createSlice({
     initialState: {
         entities: null,
         isLoading: true,
+        galleriesDataLoaded: false,
         error: null
     },
     reducers: {
@@ -18,21 +19,19 @@ const galleriesSlice = createSlice({
         galleriesReceived: (state, action) => {
             state.entities = action.payload;
             state.isLoading = false;
+            state.galleriesDataLoaded = true;
             state.error = null;
         },
         galleriesRequestFailed: (state, action) => {
             state.error = action.payload;
             state.isLoading = false;
         },
-        // galleryCreateRequested
         galleryCreated: (state, action) => {
             if (!Array.isArray(state.entities)) {
                 state.entities = [];
             }
             state.entities.push(action.payload);
         },
-        // galleryCreateFailed
-        // galleryEditRequested
         galleryEdited: (state, action) => {
             if (!Array.isArray(state.entities)) {
                 state.entities = [];
@@ -41,12 +40,9 @@ const galleriesSlice = createSlice({
                 gallery.id === action.payload.id
             )] = action.payload;
         },
-        // galleryEditFailed
-        // galleryDeleteRequested
         galleryDeleted: (state, action) => {
             state.entities = state.entities.filter(item => item.id !== action.payload);
         }
-        // galleryDeleteFailed
     }
 });
 
@@ -110,7 +106,7 @@ export const deleteGallery = (id) => async (dispatch) => {
 };
 
 export const getGalleriesList = () => (state) => state.galleries.entities;
-export const getGalleriesLoadingStatus = () => (state) => state.galleries.isLoading;
+export const getGalleriesDataStatus = () => (state) => state.galleries.galleriesDataLoaded;
 export const getCurrentGallery = (id) => (state) => state.galleries.entities.find(gallery => gallery.id === id);
 
 export default galleriesReducer;
