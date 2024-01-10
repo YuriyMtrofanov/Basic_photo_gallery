@@ -19,7 +19,7 @@ const DateField = ({
 
     return (
         <div className="mb-4 text">
-            <label >{ label }</label>
+            <label htmlFor={name}>{ label }</label>
             <div htmlFor={name} className="input-group date has-validation">
                 <input
                     id = {name}

@@ -21,12 +21,13 @@
   /* border: 5px solid rgb(169, 2, 172); */
 }
 
-/* .admin-container {
+.admin-container {
   display: flex;
-  min-height: 100vh;
+  flex-direction: column;
+  height: auto;
   justify-content: center;
   align-items: center;
-} */
+}
 
 /* страница с альбомами*/
 .gallery-container {
