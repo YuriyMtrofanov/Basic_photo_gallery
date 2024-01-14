@@ -4,11 +4,11 @@ import PropTypes from "prop-types";
 const DeleteButton = ({ onDelete }) => {
     return (
         <div
-            className="delete-button text-danger"
+            className="delete-button text-dark"
             role="button"
             onClick={onDelete}
         >
-            <h1><i className="bi bi-trash3"></i></h1>
+            <h3><i className="bi bi-trash3"></i></h3>
         </div>
     );
 };

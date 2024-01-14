@@ -64,14 +64,9 @@ const EditGalleryForm = () => {
         }
     };
 
-    const handleDelete = async () => {
-        try {
-            dispatch(deleteGallery(galleryId));
-        } catch (error) {
-            console.error(error.message);
-        } finally {
-            navigate("/galleries");
-        }
+    const handleDelete = () => {
+        dispatch(deleteGallery(galleryId));
+        navigate("/galleries");
     };
 
     if (!allPhotos) return "...Loading";

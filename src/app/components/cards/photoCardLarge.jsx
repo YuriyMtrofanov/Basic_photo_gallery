@@ -17,7 +17,11 @@ const PhotoCardLarge = ({ img, photoId, onDelete }) => {
                 src={img}
                 alt="photo"
             />
-            {isAdmin === "admin" && <h5><DeleteButton onDelete={() => handleDelete(photoId)}/></h5>}
+            {isAdmin === "admin" &&
+                <DeleteButton
+                    onDelete={() => handleDelete(photoId)}
+                />
+            }
         </div>
     );
 };
